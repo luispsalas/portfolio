@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 250" width="1040" height="250" role="img" aria-labelledby="t d">
+  <title id="t">Luis Salas — AI enablement &amp; governance, creative audiovisual</title>
+  <desc id="d">A measured rail of evenly spaced points runs from the left into a single solid node, and continues to the right as a sound wave.</desc>
+  <text x="60" y="96" fill="#e6edf3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="60" font-weight="700" letter-spacing="-1" textLength="322" lengthAdjust="spacingAndGlyphs">Luis Salas</text>
+  <text x="62" y="148" fill="#9198a1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="30" textLength="668" lengthAdjust="spacingAndGlyphs">AI enablement &amp; governance · Creative audiovisual</text>
+  <line x1="60" y1="205" x2="520" y2="205" stroke="#4493f8" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="60" cy="205" r="7" fill="#4493f8"/>
+  <circle cx="175" cy="205" r="7" fill="#4493f8"/>
+  <circle cx="290" cy="205" r="7" fill="#4493f8"/>
+  <circle cx="405" cy="205" r="7" fill="#4493f8"/>
+  <path d="M520,205 Q543,177 566,205 T612,205 T658,205 T704,205 T750,205 T796,205 T842,205 T888,205 T934,205 T980,205" fill="none" stroke="#db6d28" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="520" cy="205" r="13" fill="#e6edf3"/>
+  <circle cx="980" cy="205" r="9" fill="#0d1117" stroke="#db6d28" stroke-width="4"/>
+</svg>
