@@ -1,13 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 150" width="1040" height="150" role="img" aria-labelledby="t d">
   <title id="t">Luis P. Salas</title>
-  <desc id="d">A measured rail of evenly spaced points runs from the left into a single solid node, and continues to the right as a sound wave.</desc>
+  <desc id="d">A single row of points: evenly spaced and level on the left, rippling into a sound wave on the right as the colour shifts from the governance track to the creative one.</desc>
   <text x="0" y="52" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="44" font-weight="700" letter-spacing="-1" textLength="296" lengthAdjust="spacingAndGlyphs">Luis P. Salas</text>
-  <line x1="0" y1="112" x2="500" y2="112" stroke="#0969da" stroke-width="4" stroke-linecap="butt"/>
-  <circle cx="80" cy="112" r="6" fill="#0969da"/>
-  <circle cx="190" cy="112" r="6" fill="#0969da"/>
-  <circle cx="300" cy="112" r="6" fill="#0969da"/>
-  <circle cx="410" cy="112" r="6" fill="#0969da"/>
-  <path d="M500,112 Q533,76 566,112 T632,112 T698,112 T764,112 T830,112 T896,112 T962,112 T1028,112" fill="none" stroke="#bc4c00" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="500" cy="112" r="10" fill="#1f2328"/>
-  <circle cx="1028" cy="112" r="7" fill="#ffffff" stroke="#bc4c00" stroke-width="3"/>
+  <circle cx="0" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="26" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="52" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="78" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="104" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="130" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="156" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="182" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="208" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="234" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="260" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="286" cy="112.0" r="4.5" fill="#0969da"/>
+  <circle cx="312" cy="112.0" r="4.5" fill="#0c69d6"/>
+  <circle cx="338" cy="112.0" r="4.5" fill="#1367ce"/>
+  <circle cx="364" cy="112.0" r="4.5" fill="#1966c6"/>
+  <circle cx="390" cy="112.0" r="4.5" fill="#2065bf"/>
+  <circle cx="416" cy="111.6" r="4.5" fill="#2664b7"/>
+  <circle cx="442" cy="110.6" r="4.5" fill="#2d63af"/>
+  <circle cx="468" cy="109.3" r="4.5" fill="#3362a7"/>
+  <circle cx="494" cy="108.4" r="4.5" fill="#3a619f"/>
+  <circle cx="520" cy="108.4" r="4.5" fill="#406097"/>
+  <circle cx="546" cy="109.6" r="4.5" fill="#475f8f"/>
+  <circle cx="572" cy="112.0" r="4.5" fill="#4d5e87"/>
+  <circle cx="598" cy="115.2" r="4.5" fill="#545d7f"/>
+  <circle cx="624" cy="118.4" r="4.5" fill="#5a5c77"/>
+  <circle cx="650" cy="120.9" r="4.5" fill="#615b6f"/>
+  <circle cx="676" cy="121.8" r="4.5" fill="#675a67"/>
+  <circle cx="702" cy="120.6" r="4.5" fill="#6e595f"/>
+  <circle cx="728" cy="117.2" r="4.5" fill="#745857"/>
+  <circle cx="754" cy="112.1" r="4.5" fill="#7b574f"/>
+  <circle cx="780" cy="106.1" r="4.5" fill="#815647"/>
+  <circle cx="806" cy="100.6" r="4.5" fill="#885440"/>
+  <circle cx="832" cy="96.8" r="4.5" fill="#8e5338"/>
+  <circle cx="858" cy="95.9" r="4.5" fill="#955230"/>
+  <circle cx="884" cy="98.3" r="4.5" fill="#9b5128"/>
+  <circle cx="910" cy="103.9" r="4.5" fill="#a25020"/>
+  <circle cx="936" cy="111.8" r="4.5" fill="#a84f18"/>
+  <circle cx="962" cy="120.5" r="4.5" fill="#af4e10"/>
+  <circle cx="988" cy="128.3" r="4.5" fill="#b54d08"/>
+  <circle cx="1014" cy="133.4" r="4.5" fill="#bc4c00"/>
 </svg>
