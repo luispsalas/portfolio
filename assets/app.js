@@ -1,12 +1,12 @@
-/* Luis Salas — Projects
+/* Luis P. Salas — Projects
    Content lives in PROJECTS; the page renders from it.
    Only projects ticked in the workbook's Include tab appear here. */
 
 const STATUS = {
-  live:      { cls: "live",      en: "Live",              es: "En línea" },
+  live:      { cls: "live",      en: "Live",               es: "En línea" },
   soon:      { cls: "soon",      en: "Making public soon", es: "Por publicar" },
-  private:   { cls: "private",   en: "Private",           es: "Privado" },
-  described: { cls: "described", en: "Described",         es: "Descrito" }
+  private:   { cls: "private",   en: "Private",            es: "Privado" },
+  described: { cls: "described", en: "Described",          es: "Descrito" }
 };
 
 const PROJECTS = {
@@ -19,11 +19,11 @@ const PROJECTS = {
       href: "https://luispsalas.github.io/applied-ai-concepts/"
     },
     {
-      title: "Authorship Meter",
-      en: "A disclosure format and embeddable badge showing how much of a work came from a human and how much from a model.",
-      es: "Formato de divulgación e insignia integrable que muestra cuánto de una obra viene de una persona y cuánto de un modelo.",
-      tags: ["Standard", "Embed"], status: "live",
-      href: "https://luispsalas.github.io/authorship-meter/"
+      title: "Autonomous AI Casebook",
+      en: "Reconstructions of incidents where an AI system's autonomy was central to real harm, built from primary sources.",
+      es: "Reconstrucciones de incidentes donde la autonomía de un sistema de IA fue central al daño, desde fuentes primarias.",
+      tags: ["Casebook", "Primary sources"], status: "live",
+      href: "https://github.com/luispsalas/autonomous-ai-casebook"
     },
     {
       title: "AI Governance Scorecard",
@@ -33,15 +33,15 @@ const PROJECTS = {
       href: "https://luispsalas.github.io/ai-governance-scorecard/"
     },
     {
-      title: "Autonomous AI Casebook",
-      en: "Reconstructions of incidents where an AI system's autonomy was central to real harm, built from primary sources.",
-      es: "Reconstrucciones de incidentes donde la autonomía de un sistema de IA fue central al daño, desde fuentes primarias.",
-      tags: ["Casebook", "Primary sources"], status: "soon",
-      href: "https://github.com/luispsalas/autonomous-ai-casebook"
+      title: "Authorship Meter",
+      en: "A disclosure format and embeddable badge showing how much of a work came from a human and how much from a model.",
+      es: "Formato de divulgación e insignia integrable que muestra cuánto de una obra viene de una persona y cuánto de un modelo.",
+      tags: ["Disclosure", "Embed"], status: "live",
+      href: "https://github.com/luispsalas/authorship-meter"
     },
     {
       title: "AI Strategic Context Engine",
-      en: "Client work: a system for grounding strategic decisions in an organisation's own context. Described here, not linked.",
+      en: "Client work: a system for grounding strategic decisions in an organization's own context. Described here, not linked.",
       es: "Trabajo de cliente: un sistema para anclar decisiones estratégicas en el contexto propio de una organización. Aquí descrito, sin enlace.",
       tags: ["Client work", "Confidential"], status: "described",
       href: null
@@ -56,7 +56,7 @@ const PROJECTS = {
   ],
   creative: [
     {
-      title: "IDIORRITMOS",
+      title: "Idiorritmos",
       en: "An idiorhythmic texturizer — everlasting layers of sound chopped by human rhythm. Max/MSP gen~ exported to AU/VST3.",
       es: "Un texturizador idiorrítmico — capas perpetuas de sonido cortadas por ritmo humano. Max/MSP gen~ exportado a AU/VST3.",
       tags: ["Max/MSP", "RNBO", "Plugin"], status: "soon",
@@ -96,18 +96,11 @@ function cardHTML(p) {
     : `<div class="card">${inner}</div>`;
 }
 
-function placeholderHTML() {
-  const t = lang === "en" ? "More projects" : "Más proyectos";
-  const b = lang === "en" ? "Still being assessed for inclusion." : "En evaluación para incluirse.";
-  return `<div class="card placeholder"><div class="head"><h3>${t}</h3></div><p class="blurb">${b}</p></div>`;
-}
-
 function render() {
   const word = lang === "en" ? "projects" : "proyectos";
   for (const key of ["governance", "creative"]) {
     const list = PROJECTS[key];
-    document.getElementById(`cards-${key}`).innerHTML =
-      list.map(cardHTML).join("") + placeholderHTML();
+    document.getElementById(`cards-${key}`).innerHTML = list.map(cardHTML).join("");
     document.getElementById(`count-${key}`).textContent = `${list.length} ${word}`;
     document.getElementById(`n-${key}`).textContent = `${list.length} ${word}`;
   }
@@ -132,14 +125,12 @@ document.getElementById("lang").addEventListener("click", e => {
   applyLang();
 });
 
-/* Light / dark switch — overrides the OS setting, remembered per visitor */
+/* Light / dark switch. Dark is the default; a visitor's choice is remembered. */
 const root = document.documentElement;
 const themeBtn = document.getElementById("theme");
 
 function isDark() {
-  const set = root.getAttribute("data-theme");
-  if (set) return set === "dark";
-  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return root.getAttribute("data-theme") !== "light";
 }
 function paintThemeBtn() {
   themeBtn.textContent = isDark() ? "☀" : "☾";
@@ -147,8 +138,10 @@ function paintThemeBtn() {
 }
 try {
   const saved = localStorage.getItem("theme");
-  if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
-} catch (e) { /* storage unavailable — fall back to the OS setting */ }
+  root.setAttribute("data-theme", saved === "light" ? "light" : "dark");
+} catch (e) {
+  root.setAttribute("data-theme", "dark");
+}
 
 themeBtn.addEventListener("click", () => {
   const next = isDark() ? "light" : "dark";

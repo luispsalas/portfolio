@@ -2,7 +2,7 @@
    Luis Salas — Projects
    Palette and type follow GitHub Primer, so this hub reads as a
    sibling of the applied-ai-concepts wiki and the casebook.
-   Blue = governance track. Orange = creative track.
+   Green = governance track. Purple = creative track.
    ============================================================ */
 
 :root {
@@ -15,10 +15,10 @@
   --border:        #d1d9e0;
   --border-muted:  #e4e8ec;
 
-  --accent:        #0969da;   /* governance */
-  --accent-wash:   #ddf4ff;
-  --creative:      #bc4c00;   /* creative — same orange as the casebook banner */
-  --creative-wash: #fff1e5;
+  --accent:        #1a7f37;   /* governance */
+  --accent-wash:   #dafbe1;
+  --creative:      #8250df;   /* creative */
+  --creative-wash: #fbefff;
 
   --success:       #1a7f37;
   --attention:     #9a6700;
@@ -52,10 +52,10 @@
     --bg-subtle:     #151b23;
     --border:        #3d444d;
     --border-muted:  #2a313c;
-    --accent:        #4493f8;
-    --accent-wash:   #121d2f;
-    --creative:      #db6d28;
-    --creative-wash: #2b1a10;
+    --accent:        #3fb950;
+    --accent-wash:   #0f2417;
+    --creative:      #a371f7;
+    --creative-wash: #21162d;
     --success:       #3fb950;
     --attention:     #d29922;
     --muted-dot:     #a371f7;
@@ -69,10 +69,10 @@
   --bg-subtle:     #151b23;
   --border:        #3d444d;
   --border-muted:  #2a313c;
-  --accent:        #4493f8;
-  --accent-wash:   #121d2f;
-  --creative:      #db6d28;
-  --creative-wash: #2b1a10;
+  --accent:        #3fb950;
+  --accent-wash:   #0f2417;
+  --creative:      #a371f7;
+  --creative-wash: #21162d;
   --success:       #3fb950;
   --attention:     #d29922;
   --muted-dot:     #a371f7;
@@ -241,7 +241,7 @@ a.card:hover .arrow { transform: translateX(3px); color: var(--accent); }
 .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .status.live { color: var(--success); }
 .status.soon { color: var(--attention); }
-.status.private { color: var(--muted-dot); }
+.status.private { color: var(--fg-subtle); }
 .status.described { color: var(--fg-subtle); }
 
 .card.placeholder {
@@ -276,3 +276,6 @@ footer { border-top: 1px solid var(--border); padding-block: var(--s6) var(--s8)
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+.btn.disabled { color: var(--fg-subtle); cursor: default; }
+.btn.disabled:hover { border-color: var(--border); color: var(--fg-subtle); }
