@@ -2,12 +2,12 @@
   <title id="t">Luis P. Salas</title>
   <desc id="d">A measured rail of evenly spaced points runs from the left into a single solid node, and continues to the right as a sound wave.</desc>
   <text x="0" y="52" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="44" font-weight="700" letter-spacing="-1" textLength="296" lengthAdjust="spacingAndGlyphs">Luis P. Salas</text>
-  <line x1="0" y1="112" x2="500" y2="112" stroke="#1a7f37" stroke-width="4" stroke-linecap="butt"/>
-  <circle cx="80" cy="112" r="6" fill="#1a7f37"/>
-  <circle cx="190" cy="112" r="6" fill="#1a7f37"/>
-  <circle cx="300" cy="112" r="6" fill="#1a7f37"/>
-  <circle cx="410" cy="112" r="6" fill="#1a7f37"/>
-  <path d="M500,112 Q533,76 566,112 T632,112 T698,112 T764,112 T830,112 T896,112 T962,112 T1028,112" fill="none" stroke="#8250df" stroke-width="4" stroke-linecap="round"/>
+  <line x1="0" y1="112" x2="500" y2="112" stroke="#0969da" stroke-width="4" stroke-linecap="butt"/>
+  <circle cx="80" cy="112" r="6" fill="#0969da"/>
+  <circle cx="190" cy="112" r="6" fill="#0969da"/>
+  <circle cx="300" cy="112" r="6" fill="#0969da"/>
+  <circle cx="410" cy="112" r="6" fill="#0969da"/>
+  <path d="M500,112 Q533,76 566,112 T632,112 T698,112 T764,112 T830,112 T896,112 T962,112 T1028,112" fill="none" stroke="#bc4c00" stroke-width="4" stroke-linecap="round"/>
   <circle cx="500" cy="112" r="10" fill="#1f2328"/>
-  <circle cx="1028" cy="112" r="7" fill="#ffffff" stroke="#8250df" stroke-width="3"/>
+  <circle cx="1028" cy="112" r="7" fill="#ffffff" stroke="#bc4c00" stroke-width="3"/>
 </svg>

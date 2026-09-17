@@ -2,7 +2,7 @@
    Luis Salas — Projects
    Palette and type follow GitHub Primer, so this hub reads as a
    sibling of the applied-ai-concepts wiki and the casebook.
-   Green = governance track. Purple = creative track.
+   Blue = governance track. Orange = creative track.
    ============================================================ */
 
 :root {
@@ -15,10 +15,10 @@
   --border:        #d1d9e0;
   --border-muted:  #e4e8ec;
 
-  --accent:        #1a7f37;   /* governance */
-  --accent-wash:   #dafbe1;
-  --creative:      #8250df;   /* creative */
-  --creative-wash: #fbefff;
+  --accent:        #0969da;   /* governance */
+  --accent-wash:   #ddf4ff;
+  --creative:      #bc4c00;   /* creative — the casebook banner's orange */
+  --creative-wash: #fff1e5;
 
   --success:       #1a7f37;
   --attention:     #9a6700;
@@ -52,10 +52,10 @@
     --bg-subtle:     #151b23;
     --border:        #3d444d;
     --border-muted:  #2a313c;
-    --accent:        #3fb950;
-    --accent-wash:   #0f2417;
-    --creative:      #a371f7;
-    --creative-wash: #21162d;
+    --accent:        #4493f8;
+    --accent-wash:   #121d2f;
+    --creative:      #db6d28;
+    --creative-wash: #2b1a10;
     --success:       #3fb950;
     --attention:     #d29922;
     --muted-dot:     #a371f7;
@@ -69,10 +69,10 @@
   --bg-subtle:     #151b23;
   --border:        #3d444d;
   --border-muted:  #2a313c;
-  --accent:        #3fb950;
-  --accent-wash:   #0f2417;
-  --creative:      #a371f7;
-  --creative-wash: #21162d;
+  --accent:        #4493f8;
+  --accent-wash:   #121d2f;
+  --creative:      #db6d28;
+  --creative-wash: #2b1a10;
   --success:       #3fb950;
   --attention:     #d29922;
   --muted-dot:     #a371f7;
