@@ -29,6 +29,13 @@ const PROJECTS = {
       href: "https://github.com/luispsalas/autonomous-ai-casebook"
     },
     {
+      title: "Governed Lakehouse", kind: "lineage",
+      en: "A Databricks Unity Catalog lakehouse where the platform decides who sees what. Tag-driven column masks and row filters are applied to one copy of synthetic customer data, and each control was checked by signing in as every role.",
+      es: "Un lakehouse en Databricks Unity Catalog donde la plataforma decide quién ve qué. Máscaras de columna y filtros de fila basados en etiquetas se aplican sobre una sola copia de datos sintéticos de clientes, y cada control se verificó iniciando sesión con cada rol.",
+      tags: ["Databricks", "Unity Catalog", "Access control"], status: "soon",
+      href: "https://github.com/luispsalas/governed-lakehouse-runbook"
+    },
+    {
       title: "AI Governance Scorecard", kind: "bars",
       en: "An interactive reference covering 42 AI metrics across 11 lifecycle layers — what to measure, how, and when.",
       es: "Referencia interactiva con 42 métricas de IA en 11 capas del ciclo de vida — qué medir, cómo y cuándo.",
@@ -98,6 +105,18 @@ const MOTIF = {
     [0,1,2,3,4].map(i => `<circle cx="${44+i*52}" cy="112" r="5" fill="${LINE}"/>`).join("") +
     `<circle cx="148" cy="112" r="10" fill="currentColor"/>` +
     [0,1].map(i => `<rect x="34" y="${52+i*18}" width="${180-i*60}" height="7" rx="3.5" fill="${LINE}"/>`).join(""),
+
+  /* lineage: several sources, one governed table, several consumers */
+  lineage: () => {
+    const box = (x, y, w, c) =>
+      `<rect x="${x}" y="${y}" width="${w}" height="26" rx="5" fill="none" stroke="${c}" stroke-width="2.5"/>`;
+    return box(30,48,62,LINE) + box(30,106,62,LINE) + box(132,77,66,"currentColor") +
+      box(238,48,56,LINE) + box(238,106,56,LINE) +
+      `<path d="M92,61 C114,61 112,90 132,90" fill="none" stroke="${LINE}" stroke-width="2.5"/>
+       <path d="M92,119 C114,119 112,90 132,90" fill="none" stroke="${LINE}" stroke-width="2.5"/>
+       <path d="M198,90 C220,90 218,61 238,61" fill="none" stroke="currentColor" stroke-width="2.5"/>
+       <path d="M198,90 C220,90 218,119 238,119" fill="none" stroke="currentColor" stroke-width="2.5"/>`;
+  },
 
   bars: () => {
     const h = [40,68,32,86,56,96,48];
