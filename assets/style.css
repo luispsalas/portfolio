@@ -199,12 +199,12 @@ a:hover { text-decoration: underline; }
   font-size: var(--t-xs); color: var(--fg-subtle);
 }
 
-/* ---------- Cards — one component, accent swaps per section ---------- */
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--s4); }
+/* ---------- Cards — thumbnail left, content right (one per row) ---------- */
+.cards { display: grid; gap: var(--s3); }
 
 .card {
-  display: flex; flex-direction: column; gap: var(--s2);
-  padding: var(--s4) var(--s5) var(--s5);
+  display: flex; gap: var(--s4); align-items: flex-start;
+  padding: var(--s3);
   border: 1px solid var(--border); border-radius: var(--radius);
   background: var(--bg); color: var(--fg);
   transition: border-color .12s ease, background .12s ease;
@@ -212,23 +212,33 @@ a:hover { text-decoration: underline; }
 a.card:hover { border-color: var(--accent); background: var(--bg-subtle); text-decoration: none; }
 .section.creative a.card:hover { border-color: var(--creative); }
 
-.card .head { display: flex; align-items: flex-start; gap: var(--s3); }
+/* Thumbnail. Today each project gets a generated motif drawn in the banner's
+   visual language. To use a real screenshot instead, give that project a
+   `thumb` path in assets/app.js — nothing else changes. */
+.thumb {
+  flex: 0 0 176px; aspect-ratio: 16 / 9; overflow: hidden;
+  border: 1px solid var(--border-muted); border-radius: 5px;
+  background: var(--bg-subtle);
+  color: var(--accent);            /* motifs draw their accent with currentColor */
+}
+.section.creative .thumb { color: var(--creative); }
+.thumb svg, .thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.card .body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--s2); }
+.card .head { display: flex; align-items: center; gap: var(--s2); }
 .card h3 {
   margin: 0; font-size: var(--t-md); font-weight: 600;
   letter-spacing: -.01em; line-height: 1.3; color: var(--accent);
 }
 .section.creative .card h3 { color: var(--creative); }
 .card:not(a) h3 { color: var(--fg); }
-.card .arrow { margin-left: auto; color: var(--fg-subtle); transition: transform .12s ease; }
+.card .arrow { color: var(--fg-subtle); transition: transform .12s ease; }
 a.card:hover .arrow { transform: translateX(3px); color: var(--accent); }
 .section.creative a.card:hover .arrow { color: var(--creative); }
 
 .card .blurb { margin: 0; color: var(--fg-muted); font-size: var(--t-base); }
+.card .meta { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s2) var(--s3); }
 
-.card .meta {
-  display: flex; align-items: center; flex-wrap: wrap;
-  gap: var(--s2) var(--s3); margin-top: auto; padding-top: var(--s3);
-}
 .tag {
   font-family: var(--mono); font-size: var(--t-xs); color: var(--fg-muted);
   background: var(--bg-subtle); border: 1px solid var(--border-muted);
@@ -243,12 +253,6 @@ a.card:hover .arrow { transform: translateX(3px); color: var(--accent); }
 .status.soon { color: var(--attention); }
 .status.private { color: var(--fg-subtle); }
 .status.described { color: var(--fg-subtle); }
-
-.card.placeholder {
-  border-style: dashed; align-items: flex-start; justify-content: center;
-  color: var(--fg-subtle);
-}
-.section .card.placeholder h3 { color: var(--fg-subtle); }
 
 /* ---------- Footer ---------- */
 footer { border-top: 1px solid var(--border); padding-block: var(--s6) var(--s8); }
@@ -271,6 +275,13 @@ footer { border-top: 1px solid var(--border); padding-block: var(--s6) var(--s8)
   .path:last-child { border-bottom: 0; }
   .cards { grid-template-columns: 1fr; }
   .banner { padding-block: var(--s5) var(--s4); }
+}
+
+/* Thumbnail shrinks before the card gives up its row; stacks only when very narrow. */
+@media (max-width: 620px) { .thumb { flex: 0 0 124px; } }
+@media (max-width: 460px) {
+  .card { flex-direction: column; }
+  .thumb { flex: 0 0 auto; width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
