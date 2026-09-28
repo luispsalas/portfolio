@@ -29,11 +29,11 @@ const PROJECTS = {
       href: "https://github.com/luispsalas/autonomous-ai-casebook"
     },
     {
-      title: "Governed Lakehouse", kind: "lineage",
+      title: "Governed Data Platform", kind: "lineage",
       en: "A Databricks Unity Catalog lakehouse where the platform decides who sees what. Tag-driven column masks and row filters are applied to one copy of synthetic customer data, and each control was checked by signing in as every role.",
       es: "Un lakehouse en Databricks Unity Catalog donde la plataforma decide quién ve qué. Máscaras de columna y filtros de fila basados en etiquetas se aplican sobre una sola copia de datos sintéticos de clientes, y cada control se verificó iniciando sesión con cada rol.",
-      tags: ["Databricks", "Unity Catalog", "Access control"], status: "soon",
-      href: "https://github.com/luispsalas/governed-lakehouse-runbook"
+      tags: ["Databricks", "Unity Catalog", "Access control"], status: "live",
+      href: "https://github.com/luispsalas/governed-data-platform"
     },
     {
       title: "AI Governance Scorecard", kind: "bars",
