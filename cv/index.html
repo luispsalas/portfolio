@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luis P. Salas — CV</title>
+<meta name="description" content="Luis P. Salas — Data Governance Consultant, AI Enablement and Metadata Strategy. Curriculum vitae.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%23c05a1f'/></svg>">
+<style>
+  /* One source, two outputs: a reflowing web page on screen, and two
+     legal-size pages in print (the PDF beside this page is printed from it). */
+  :root {
+    --paper: #efeadd;
+    --desk: #d9d3c5;
+    --ink: #2a2723;
+    --ink-2: #4a453d;
+    --muted: #6b6458;
+    --rule: #c9c2b2;
+    --rule-soft: #d7d2c6;
+    --accent: #c05a1f;
+    --serif: Georgia, "Times New Roman", serif;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: Menlo, "SF Mono", Consolas, monospace;
+  }
+  @page { size: 8.5in 14in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--desk); color: var(--ink); font-family: var(--sans); font-size: 8.5pt; line-height: 1.34; }
+  a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--rule); }
+  a:hover { text-decoration-color: var(--accent); }
+
+  /* Web-only bar */
+  .bar { max-width: 8.5in; margin: 0 auto; padding: 14px 0; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+         font-family: var(--mono); font-size: 8pt; letter-spacing: 0.6px; text-transform: uppercase; }
+  .bar a { text-decoration: none; color: var(--ink-2); }
+  .bar .dl { background: var(--ink); color: var(--paper); padding: 7px 12px; border-radius: 4px; }
+  .bar .dl:hover { background: var(--accent); }
+
+  .page { width: 8.5in; background: var(--paper); position: relative; padding: 0.5in 0.62in 0.9in; margin: 0 auto 0.3in; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+
+  /* Header */
+  .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 0.26in; }
+  .name { font-family: var(--serif); font-size: 28pt; font-weight: normal; margin: 0 0 6px; letter-spacing: -0.3px; line-height: 1.1; }
+  .name .dot { color: var(--accent); }
+  .role { font-weight: bold; font-size: 9.4pt; margin: 0; }
+  .role .sep { color: var(--muted); font-weight: normal; margin: 0 5px; }
+  .tagline { font-family: var(--serif); font-style: italic; color: var(--ink-2); margin: 4px 0 0; font-size: 10pt; }
+  .contact { font-family: var(--mono); font-size: 7.6pt; text-align: right; line-height: 1.9; white-space: nowrap; }
+  .contact .k { color: var(--muted); margin-right: 5px; }
+
+  /* Section grid */
+  .sec { display: grid; grid-template-columns: 1.3in 1fr; column-gap: 0.28in; margin-bottom: 0.16in; }
+  .side { font-family: var(--mono); font-size: 6.9pt; letter-spacing: 0.9px; color: var(--muted); text-transform: uppercase; line-height: 1.75; padding-top: 4px; }
+  .side .num { margin-bottom: 14px; }
+  .side b { color: var(--ink); display: block; margin-top: 10px; }
+  h2 { font-family: var(--serif); font-weight: normal; font-size: 13.5pt; margin: 0 0 9px; padding-bottom: 7px; border-bottom: 1px solid var(--rule); }
+  p { margin: 0 0 6px; }
+
+  /* Jobs & projects */
+  .job { margin-top: 10px; }
+  .job-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .job-title { font-weight: bold; }
+  .job-title .org { font-weight: normal; }
+  .when { font-family: var(--mono); font-size: 7.4pt; letter-spacing: 0.8px; color: var(--muted); white-space: nowrap; text-transform: uppercase; }
+  .where { font-family: var(--serif); font-style: italic; color: var(--ink-2); font-size: 8.2pt; margin-bottom: 3px; }
+  .client { border-left: 2px solid var(--ink); padding-left: 9px; margin: 8px 0 0; }
+  .client-h { font-weight: bold; font-size: 8.4pt; letter-spacing: 0.3px; text-transform: uppercase; margin-bottom: 2px; }
+  .client-h .dur { font-family: var(--mono); font-weight: normal; color: var(--muted); letter-spacing: 0.6px; margin-left: 6px; text-transform: none; }
+  ul { list-style: none; margin: 2px 0 0; padding: 0; }
+  li { position: relative; padding-left: 13px; margin-bottom: 2px; }
+  li::before { content: "–"; position: absolute; left: 0; color: var(--muted); }
+  .earlier { font-family: var(--mono); font-size: 7.2pt; letter-spacing: 0.8px; color: var(--muted); margin-top: 9px; line-height: 1.8; text-transform: uppercase; }
+  .proj { margin-bottom: 7px; }
+  .proj:last-child { margin-bottom: 0; }
+  .proj-link { font-family: var(--mono); font-size: 7.2pt; color: var(--muted); white-space: nowrap; }
+  .proj-link a { color: var(--ink-2); }
+
+  /* Skills */
+  .skill { display: grid; grid-template-columns: 1.35in 1fr; column-gap: 0.18in; padding: 5px 0; border-bottom: 1px dashed var(--rule-soft); }
+  .skill:last-child { border-bottom: none; }
+  .skill .lab { font-family: var(--mono); font-size: 6.9pt; letter-spacing: 0.8px; color: var(--muted); text-transform: uppercase; line-height: 1.6; padding-top: 1px; }
+
+  /* Certifications */
+  .certs { display: grid; grid-template-columns: 1fr 1fr; column-gap: 0.22in; }
+  .cert { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 4px 0; border-bottom: 1px dashed var(--rule-soft); font-size: 8.2pt; }
+  .cert .st { font-family: var(--mono); font-size: 6.8pt; letter-spacing: 0.8px; color: var(--muted); white-space: nowrap; text-transform: uppercase; }
+  .cert .new { color: var(--accent); }
+
+  .edu { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 4px 0; }
+
+  .foot { border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 0.3in; display: flex; justify-content: space-between;
+          font-family: var(--mono); font-size: 6.8pt; letter-spacing: 0.9px; color: var(--muted); text-transform: uppercase; }
+  .foot .sig { font-family: var(--serif); font-style: italic; font-size: 9pt; letter-spacing: 0; text-transform: none; color: var(--ink-2); }
+
+  /* Print: fixed legal pages, footer pinned to the bottom of each */
+  @media print {
+    body { background: var(--paper); }
+    .bar { display: none; }
+    .page { height: 14in; overflow: hidden; margin: 0; box-shadow: none; break-after: page; }
+    .page:last-of-type { break-after: auto; }
+    .foot { position: absolute; left: 0.62in; right: 0.62in; bottom: 0.42in; margin: 0; }
+  }
+
+  /* Phone and narrow screens: one column, no page frame */
+  @media screen and (max-width: 860px) {
+    body { font-size: 15px; line-height: 1.5; }
+    .bar { padding: 12px 16px; font-size: 11px; }
+    .page { width: auto; padding: 24px 16px 20px; margin: 0; box-shadow: none; }
+    .page + .page { padding-top: 0; }
+    .page:first-of-type .foot { display: none; }
+    .head { flex-direction: column; margin-bottom: 24px; }
+    .name { font-size: 34px; }
+    .role { font-size: 15px; }
+    .role .sep { margin: 0 3px; }
+    .contact { text-align: left; white-space: normal; font-size: 12px; }
+    .sec { grid-template-columns: 1fr; margin-bottom: 22px; }
+    .side { display: none; }
+    h2 { font-size: 21px; }
+    .job-top, .edu { flex-direction: column; gap: 0; }
+    .when, .proj-link, .cert .st, .earlier, .skill .lab { font-size: 11px; }
+    .where, .client-h { font-size: 14px; }
+    .skill { grid-template-columns: 1fr; }
+    .certs { grid-template-columns: 1fr; }
+    .cert { font-size: 14px; }
+    .foot { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a href="../">← Projects</a>
+  <a class="dl" href="Luis-P-Salas-CV.pdf" download>Download PDF</a>
+</div>
+
+<!-- ============ PAGE 1 ============ -->
+<main>
+<div class="page">
+  <header class="head">
+    <div>
+      <h1 class="name">Luis P<span class="dot">.</span> Salas</h1>
+      <p class="role">Data Governance Consultant<span class="sep">/</span>AI Enablement<span class="sep">/</span>Metadata Strategy</p>
+      <p class="tagline">Making enterprise data AI-ready.</p>
+    </div>
+    <div class="contact">
+      <div><span class="k">based</span>San José, Costa Rica</div>
+      <div><span class="k">email</span><a href="mailto:luisp.salas@gmail.com">luisp.salas@gmail.com</a></div>
+      <div><span class="k">www</span><a href="https://www.linkedin.com/in/luispsalas/">linkedin.com/in/luispsalas</a></div>
+      <div><span class="k">web</span><a href="https://luispsalas.github.io/portfolio/">luispsalas.github.io/portfolio</a></div>
+    </div>
+  </header>
+
+  <section class="sec">
+    <div class="side">
+      <div class="num">§ 01 · Profile</div>
+      <b>Focus</b>Governance · quality · observability · metadata
+      <b>Stack</b>Alation · Snowflake · Unity Catalog · Cortex · CrewAI
+    </div>
+    <div>
+      <h2>Summary</h2>
+      <p>Multidisciplinary Data Governance &amp; AI Enablement Consultant with <strong>3+ years</strong> delivering scalable solutions across Data Quality, Observability, Data Validation, and Metadata Management. Builds the governance infrastructure, data classification frameworks, and policy enforcement systems that make multi-platform, AI-driven data environments actually work.</p>
+      <p>Known for strong analytical thinking, disciplined documentation, and the ability to align technical execution with business value. Experienced working with executives, SMEs, engineering teams, and cross-functional stakeholders to advance governance maturity. Formally trained in AI governance, with a focus on aligning frameworks to regulatory requirements such as GDPR and CCPA.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="side">
+      <div class="num">§ 02 · Projects</div>
+      <b>Public work</b>Wiki · scorecard · casebook · disclosure standard
+    </div>
+    <div>
+      <h2>Selected Projects</h2>
+      <div class="proj">
+        <div class="job-top"><span class="job-title">Governed Lakehouse <span class="org">— Databricks Unity Catalog</span></span></div>
+        <p>Built and verified a governed data platform: two-catalog prod/dev separation, a governed-tag classification taxonomy applied to every column across four layers, a group-based privilege matrix including the platform defaults most designs omit, tag-driven column masks and row-level filters, and a bronze → silver → gold pipeline with automatic lineage. Every control tested per persona against a second identity, which surfaced defects invisible to owner-run checks, including a mask that denied a column rather than masking it.</p>
+      </div>
+      <div class="proj">
+        <div class="job-top"><span class="job-title">Applied AI Concepts <span class="org">— AI literacy wiki</span></span><span class="proj-link"><a href="https://luispsalas.github.io/applied-ai-concepts/">luispsalas.github.io/applied-ai-concepts</a></span></div>
+        <p>A maintained AI literacy resource of 153 concepts behind designing, deploying, and governing AI systems, with plain-language search.</p>
+      </div>
+      <div class="proj">
+        <div class="job-top"><span class="job-title">AI Governance Scorecard</span><span class="proj-link"><a href="https://luispsalas.github.io/ai-governance-scorecard/">luispsalas.github.io/ai-governance-scorecard</a></span></div>
+        <p>Interactive reference covering 42 AI metrics across 11 lifecycle layers: what to measure, how to compute it, when to start tracking it, and which tools to use.</p>
+      </div>
+      <div class="proj">
+        <div class="job-top"><span class="job-title">Autonomous AI Casebook</span><span class="proj-link"><a href="https://github.com/luispsalas/autonomous-ai-casebook">github.com/luispsalas/autonomous-ai-casebook</a></span></div>
+        <p>In-depth reconstructions of incidents where an AI system's autonomy was central to real-world security harm, built from primary sources.</p>
+      </div>
+      <div class="proj">
+        <div class="job-top"><span class="job-title">Authorship Meter</span><span class="proj-link"><a href="https://github.com/luispsalas/authorship-meter">github.com/luispsalas/authorship-meter</a></span></div>
+        <p>A disclosure format and embeddable widget showing how much of a work came from a human and how much from a model.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="side">
+      <div class="num">§ 03 · Practice</div>
+      <b>Scale</b>350+ tables · 1,000+ columns · 85 dashboards
+      <b>Reach</b>200+ catalog users · 80 curators · 50 owners
+    </div>
+    <div>
+      <h2>Professional Experience</h2>
+      <div class="job" style="margin-top:0">
+        <div class="job-top"><span class="job-title">Data Consultant <span class="org">— IBM</span></span><span class="when">Oct 2025 – Jan 2026 · Remote</span></div>
+        <div class="where">San José, Costa Rica</div>
+        <ul><li>Led Data Governance workstreams applying Data Mesh principles and RACI-based accountability structures.</li></ul>
+      </div>
+      <div class="job">
+        <div class="job-top"><span class="job-title">Data Enablement Consultant <span class="org">— Hakkoda (an IBM Company)</span></span><span class="when">Nov 2023 – Nov 2025 · Hybrid</span></div>
+        <div class="where">San José, Costa Rica</div>
+        <div class="client">
+          <div class="client-h">Major Financial Client — Alation Deployment<span class="dur">6 months</span></div>
+          <ul>
+            <li>Consulting co-lead for Alation design and production across <strong>2 data domains</strong> (Marketing, Data Governance), ingesting <strong>80+ tables</strong>, curating <strong>250+ columns</strong> and <strong>15 dashboards</strong> for a ~80-user catalog POC.</li>
+            <li>Designed the Pre-Curation Runbook and metadata QA framework, adopted as team standard and foundation for forward automation of curation workflows.</li>
+            <li>Enabled a ~12-person Data Governance team with stewardship workflows, RACI models, and classification standards across the full catalog lifecycle.</li>
+            <li>Reviewed RBAC configured in Snowflake to confirm roles and grants flowed correctly into Alation and were properly documented, supporting fine-grained access control visibility across platforms.</li>
+            <li>Authored internal AI Discovery Document on Snowflake Cortex Classification for ML-driven PII identification and sensitivity classification, supporting compliance-oriented masking and anonymization workflows; presented as a company-level POC at the internal AI &amp; Cortex development workshop.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot"><span>Luis P. Salas · Curriculum Vitae</span><span class="sig">L.S.</span><span>Sep 2026 · Page 1 / 2</span></footer>
+</div>
+
+<!-- ============ PAGE 2 ============ -->
+<div class="page">
+  <section class="sec" style="margin-top:0.1in">
+    <div class="side">
+      <div class="num">§ 03 · Practice (cont.)</div>
+      <b>Domains</b>Sales · supply chain · commercial · marketing · DG · warehouse
+    </div>
+    <div>
+      <div class="client" style="margin-top:0">
+        <div class="client-h">Major Food Supply Chain Client — Enterprise DG Enablement<span class="dur">2.5 years</span></div>
+        <ul>
+          <li>Led Data Governance workstreams across <strong>5 data domains</strong> (Sales, Supply Chain, Commercial, Data Governance, Warehouse), supporting <strong>80+ curators</strong> and <strong>200+ catalog users</strong>.</li>
+          <li>Scaled metadata coverage to <strong>350+ tables</strong>, <strong>1,000+ columns</strong>, and <strong>85 dashboards</strong> through a partially automated curation approach.</li>
+          <li>Formalized Business Ownership and SME accountability structures across data domains, enabling sustainable governance at scale for ~3 DG leads, 50 Business Owners, and 80 domain curators.</li>
+          <li>Coordinated governance activities between internal teams and client DG organization: structured validation of business metrics, enterprise reports, and data pipelines.</li>
+          <li>Curated and validated end-to-end data lineage in Alation, giving catalog users visibility into data origin, transformations, and consumption across domains.</li>
+        </ul>
+      </div>
+      <div class="client">
+        <div class="client-h">Internal BVO — Business Value Optimization</div>
+        <ul>
+          <li>Developed <strong>~10 reusable governance assets</strong> (recipes, templates, playbooks) consolidated as company-level Data Governance standards, adopted across DG delivery teams.</li>
+          <li>Established a standardized validation process applied across <strong>3+ engagements</strong>, accelerating onboarding, curation, and validation cycles.</li>
+        </ul>
+      </div>
+      <div class="earlier">
+        Associate Data Governance Analyst II · Apr 2023 – Nov 2023<br>
+        Associate Data Governance Analyst I · Oct 2022 – Apr 2023<br>
+        Associate Data Analyst · Aug 2022 – Oct 2022
+      </div>
+      <div class="job">
+        <div class="job-top"><span class="job-title">Communication Consultant &amp; Audiovisual Producer <span class="org">— Freelance</span></span><span class="when">Jan 2014 – Oct 2021</span></div>
+        <ul>
+          <li>Design, production, and post-production of audiovisual materials for businesses, institutions, and NGOs.</li>
+          <li>Structured documentation and workflow design, skills foundational to later governance work.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="side">
+      <div class="num">§ 04 · Toolkit</div>
+      <b>Mode</b>Hands-on · strategic
+      <b>Output</b>Frameworks · pipelines · playbooks
+    </div>
+    <div>
+      <h2>Professional Skills</h2>
+      <div class="skill"><div class="lab">Data governance<br>&amp; enablement</div><div>Alation data catalog · multi-platform governance · policy enforcement · data classification · data lineage · curation pipelines · asset certification · metadata QA frameworks · stewardship models · glossary standards · testing strategy (Unit / QA / UAT)</div></div>
+      <div class="skill"><div class="lab">Data platforms<br>&amp; engineering</div><div>Databricks Unity Catalog (governed tags, ABAC masks and row filters, privilege matrices incl. compute, lineage) · Snowflake · RBAC review &amp; documentation · SQL · Python / pandas · metadata extraction pipelines</div></div>
+      <div class="skill"><div class="lab">AI &amp; automation</div><div>Snowflake Cortex · ML-driven tagging · metadata enrichment for RAG · AI opportunity mapping · multi-agent system design (CrewAI) · agent-based automation</div></div>
+      <div class="skill"><div class="lab">Documentation<br>&amp; process</div><div>Runbooks · playbooks · RACI · testing · job aids · workflow diagrams · stakeholder communication</div></div>
+      <div class="skill"><div class="lab">Creative &amp;<br>cross-disciplinary</div><div>Systems design thinking · audiovisual structure modeling · narrative documentation · stakeholder storytelling</div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="side">
+      <div class="num">§ 05 · Credentials</div>
+      <b>Recent</b>7 new certifications · May–Jun 2026
+      <b>Vendors</b>Alation · Atlan · Snowflake · Databricks · IBM · Anthropic · Oxford
+    </div>
+    <div>
+      <h2>Certifications</h2>
+      <div class="certs">
+        <div class="cert"><span>Alation Professional Implementer &amp; Consultant</span><span class="st">Active</span></div>
+        <div class="cert"><span>Atlan Metadata Pro Certified</span><span class="st">Active</span></div>
+        <div class="cert"><span>SnowPro Advanced — Data Analyst</span><span class="st">Active</span></div>
+        <div class="cert"><span>IBM Data Science Professional Certificate (V2)</span><span class="st">Active</span></div>
+        <div class="cert"><span>Sigma Delivery Partner Certified</span><span class="st">Active</span></div>
+        <div class="cert"><span>Data Observability &amp; DQ Testing — DataKitchen</span><span class="st">Active</span></div>
+        <div class="cert"><span>Data Quality Fundamentals — Monte Carlo</span><span class="st">Active</span></div>
+        <div class="cert"><span><span class="new">●</span> AI Governance — Saïd Business School, Oxford</span><span class="st">May 2026</span></div>
+        <div class="cert"><span><span class="new">●</span> Generative AI &amp; LLMs: Architecture and Data Prep — IBM</span><span class="st">May 2026</span></div>
+        <div class="cert"><span><span class="new">●</span> Data Interoperability with Unity Catalog — Databricks</span><span class="st">Jun 2026</span></div>
+        <div class="cert"><span><span class="new">●</span> Claude Code in Action — Anthropic</span><span class="st">May 2026</span></div>
+        <div class="cert"><span><span class="new">●</span> Building AI Agents with Snowflake — Snowflake</span><span class="st">Jun 2026</span></div>
+        <div class="cert"><span><span class="new">●</span> Mastering CrewAI for Multi-Agent Systems</span><span class="st">May 2026</span></div>
+        <div class="cert"><span><span class="new">●</span> Governance Fundamentals Accreditation — Databricks</span><span class="st">Jun 2026</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="side">
+      <div class="num">§ 06 · Foundations</div>
+      <b>Disciplines</b>Communication · sound art
+      <b>Geo</b>Costa Rica · Spain
+    </div>
+    <div>
+      <h2>Education</h2>
+      <div class="edu"><span><strong>Master's Degree in Sound Art</strong> <span class="where">· University of Barcelona</span></span><span class="when">Spain</span></div>
+      <div class="edu"><span><strong>Bachelor of Communication Sciences</strong> <span class="where">· University of Costa Rica</span></span><span class="when">Costa Rica</span></div>
+    </div>
+  </section>
+
+  <footer class="foot"><span>Luis P. Salas · Curriculum Vitae</span><span class="sig">L.S.</span><span>Sep 2026 · Page 2 / 2</span></footer>
+</div>
+</main>
+
+</body>
+</html>
