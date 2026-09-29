@@ -82,7 +82,7 @@
 
   /* Certifications */
   .certs { display: grid; grid-template-columns: 1fr 1fr; column-gap: 0.22in; }
-  .cert { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 4px 0; border-bottom: 1px dashed var(--rule-soft); font-size: 8.2pt; }
+  .cert { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 3px 0; border-bottom: 1px dashed var(--rule-soft); font-size: 8.2pt; }
   .cert .st { font-family: var(--mono); font-size: 6.8pt; letter-spacing: 0.8px; color: var(--muted); white-space: nowrap; text-transform: uppercase; }
   .cert .new { color: var(--accent); }
 
@@ -172,7 +172,7 @@
       <h2>Selected Projects</h2>
       <div class="proj">
         <div class="job-top"><span class="job-title">Governed Data Platform <span class="org">— Databricks Unity Catalog</span></span><span class="proj-link"><a href="https://github.com/luispsalas/governed-data-platform">github.com/luispsalas/governed-data-platform</a></span></div>
-        <p>Built and verified a governed data platform: two-catalog prod/dev separation, a governed-tag classification taxonomy applied to every column across four layers, a group-based privilege matrix including the platform defaults most designs omit, tag-driven column masks and row-level filters, and a bronze → silver → gold pipeline with automatic lineage. Every control tested per persona against a second identity, which surfaced defects invisible to owner-run checks, including a mask that denied a column rather than masking it. Runbook and SQL published.</p>
+        <p>Built and verified a governed data platform: two-catalog prod/dev separation, a governed-tag classification taxonomy applied to every column across four layers, a group-based privilege matrix including the platform defaults most designs omit, tag-driven column masks and row-level filters, and a bronze → silver → gold pipeline with automatic lineage. Every control tested per persona against a second identity, which surfaced defects invisible to owner-run checks, including a mask that denied a column rather than masking it. Extended with structural anonymization (k-anonymity enforced by a constraint), a 20-control fault-seeded state-assertion suite, SOC 2 control mapping, and a Unity Catalog ↔ Snowflake governance crosswalk. Implementation guide, runbook and SQL published.</p>
       </div>
       <div class="proj">
         <div class="job-top"><span class="job-title">Applied AI Concepts <span class="org">— AI literacy wiki</span></span><span class="proj-link"><a href="https://luispsalas.github.io/applied-ai-concepts/">luispsalas.github.io/applied-ai-concepts</a></span></div>
@@ -275,7 +275,7 @@
     <div>
       <h2>Professional Skills</h2>
       <div class="skill"><div class="lab">Data governance<br>&amp; enablement</div><div>Alation data catalog · multi-platform governance · policy enforcement · data classification · data lineage · curation pipelines · asset certification · metadata QA frameworks · stewardship models · glossary standards · testing strategy (Unit / QA / UAT)</div></div>
-      <div class="skill"><div class="lab">Data platforms<br>&amp; engineering</div><div>Databricks Unity Catalog (governed tags, ABAC masks and row filters, privilege matrices incl. compute, lineage) · Snowflake · RBAC review &amp; documentation · SQL · Python / pandas · metadata extraction pipelines</div></div>
+      <div class="skill"><div class="lab">Data platforms<br>&amp; engineering</div><div>Databricks Unity Catalog (governed tags, ABAC masks and row filters, privilege matrices incl. compute, lineage, anonymization, assertion testing) · Snowflake · RBAC review &amp; documentation · SQL · Python / pandas · metadata extraction pipelines</div></div>
       <div class="skill"><div class="lab">AI &amp; automation</div><div>Snowflake Cortex · ML-driven tagging · metadata enrichment for RAG · AI opportunity mapping · multi-agent system design (CrewAI) · agent-based automation</div></div>
       <div class="skill"><div class="lab">Documentation<br>&amp; process</div><div>Runbooks · playbooks · RACI · testing · job aids · workflow diagrams · stakeholder communication</div></div>
       <div class="skill"><div class="lab">Creative &amp;<br>cross-disciplinary</div><div>Systems design thinking · audiovisual structure modeling · narrative documentation · stakeholder storytelling</div></div>
