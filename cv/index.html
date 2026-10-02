@@ -7,8 +7,8 @@
 <meta name="description" content="Luis P. Salas — Data Governance Consultant, AI Enablement and Metadata Strategy. Curriculum vitae.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%23c05a1f'/></svg>">
 <style>
-  /* One source, two outputs: a reflowing web page on screen, and two
-     legal-size pages in print (the PDF beside this page is printed from it). */
+  /* One source, two outputs: a reflowing web page on screen, and three
+     Letter-size pages in print (the PDF beside this page is printed from it). */
   :root {
     --paper: #efeadd;
     --desk: #d9d3c5;
@@ -22,7 +22,7 @@
     --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
     --mono: Menlo, "SF Mono", Consolas, monospace;
   }
-  @page { size: 8.5in 14in; margin: 0; }
+  @page { size: 8.5in 11in; margin: 0; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body { background: var(--desk); color: var(--ink); font-family: var(--sans); font-size: 8.5pt; line-height: 1.34; }
@@ -92,11 +92,11 @@
           font-family: var(--mono); font-size: 6.8pt; letter-spacing: 0.9px; color: var(--muted); text-transform: uppercase; }
   .foot .sig { font-family: var(--serif); font-style: italic; font-size: 9pt; letter-spacing: 0; text-transform: none; color: var(--ink-2); }
 
-  /* Print: fixed legal pages, footer pinned to the bottom of each */
+  /* Print: fixed Letter pages, footer pinned to the bottom of each */
   @media print {
     body { background: var(--paper); }
     .bar { display: none; }
-    .page { height: 14in; overflow: hidden; margin: 0; box-shadow: none; break-after: page; }
+    .page { height: 11in; overflow: hidden; margin: 0; box-shadow: none; break-after: page; }
     .page:last-of-type { break-after: auto; }
     .foot { position: absolute; left: 0.62in; right: 0.62in; bottom: 0.42in; margin: 0; }
   }
@@ -107,7 +107,7 @@
     .bar { padding: 12px 16px; font-size: 11px; }
     .page { width: auto; padding: 24px 16px 20px; margin: 0; box-shadow: none; }
     .page + .page { padding-top: 0; }
-    .page:first-of-type .foot { display: none; }
+    .page:not(:last-of-type) .foot { display: none; }
     .head { flex-direction: column; margin-bottom: 24px; }
     .name { font-size: 34px; }
     .role { font-size: 15px; }
@@ -193,11 +193,17 @@
     </div>
   </section>
 
+  <footer class="foot"><span>Luis P. Salas · Curriculum Vitae</span><span class="sig">L.S.</span><span>Oct 2026 · Page 1 / 3</span></footer>
+</div>
+
+<!-- ============ PAGE 2 ============ -->
+<div class="page">
   <section class="sec">
     <div class="side">
       <div class="num">§ 03 · Practice</div>
       <b>Scale</b>350+ tables · 1,000+ columns · 85 dashboards
       <b>Reach</b>200+ catalog users · 80 curators · 50 owners
+      <b>Domains</b>Sales · supply chain · commercial · marketing · DG · warehouse
     </div>
     <div>
       <h2>Professional Experience</h2>
@@ -219,22 +225,7 @@
             <li>Authored internal AI Discovery Document on Snowflake Cortex Classification for ML-driven PII identification and sensitivity classification, supporting compliance-oriented masking and anonymization workflows; presented as a company-level POC at the internal AI &amp; Cortex development workshop.</li>
           </ul>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="foot"><span>Luis P. Salas · Curriculum Vitae</span><span class="sig">L.S.</span><span>Sep 2026 · Page 1 / 2</span></footer>
-</div>
-
-<!-- ============ PAGE 2 ============ -->
-<div class="page">
-  <section class="sec" style="margin-top:0.1in">
-    <div class="side">
-      <div class="num">§ 03 · Practice (cont.)</div>
-      <b>Domains</b>Sales · supply chain · commercial · marketing · DG · warehouse
-    </div>
-    <div>
-      <div class="client" style="margin-top:0">
+      <div class="client">
         <div class="client-h">Major Food Supply Chain Client — Enterprise DG Enablement<span class="dur">2.5 years</span></div>
         <ul>
           <li>Led Data Governance workstreams across <strong>5 data domains</strong> (Sales, Supply Chain, Commercial, Data Governance, Warehouse), supporting <strong>80+ curators</strong> and <strong>200+ catalog users</strong>.</li>
@@ -256,6 +247,7 @@
         Associate Data Governance Analyst I · Oct 2022 – Apr 2023<br>
         Associate Data Analyst · Aug 2022 – Oct 2022
       </div>
+      </div>
       <div class="job">
         <div class="job-top"><span class="job-title">Communication Consultant &amp; Audiovisual Producer <span class="org">— Freelance</span></span><span class="when">Jan 2014 – Oct 2021</span></div>
         <ul>
@@ -266,6 +258,11 @@
     </div>
   </section>
 
+  <footer class="foot"><span>Luis P. Salas · Curriculum Vitae</span><span class="sig">L.S.</span><span>Oct 2026 · Page 2 / 3</span></footer>
+</div>
+
+<!-- ============ PAGE 3 ============ -->
+<div class="page">
   <section class="sec">
     <div class="side">
       <div class="num">§ 04 · Toolkit</div>
@@ -322,7 +319,7 @@
     </div>
   </section>
 
-  <footer class="foot"><span>Luis P. Salas · Curriculum Vitae</span><span class="sig">L.S.</span><span>Sep 2026 · Page 2 / 2</span></footer>
+  <footer class="foot"><span>Luis P. Salas · Curriculum Vitae</span><span class="sig">L.S.</span><span>Oct 2026 · Page 3 / 3</span></footer>
 </div>
 </main>
 
