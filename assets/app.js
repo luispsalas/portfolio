@@ -92,75 +92,117 @@ const PROJECTS = {
 /* ---- Motifs -------------------------------------------------------------
    Drawn in the banner's language: dots, rules and one accent. They use
    currentColor, so each section's accent (blue / orange) and both themes
-   come through without a second set of files. 320x180 = the 16:9 frame. */
-const LINE = "var(--border)";
-const MOTIF = {
-  doc: () =>
-    [0,1,2,3,4].map(i =>
-      `<rect x="34" y="${46+i*22}" width="${252-((i*53)%110)}" height="8" rx="4"
-       fill="${i===0 ? "currentColor" : LINE}"/>`).join(""),
+   come through without a second set of files. 320x180 = the 16:9 frame.
 
+   Each motif carries a gentle SMIL animation that says something about its
+   project (data flowing through lineage, a marker moving along a timeline).
+   Animations are paused at rest and play only while a card is hovered or
+   focused; visitors who ask for reduced motion never see them move. */
+const LINE = "var(--border)";
+
+/* One looping <animate>. `ease(n)` gives n keyframes a soft in-out curve. */
+const anim = (attr, values, dur, extra = "") =>
+  `<animate attributeName="${attr}" values="${values}" dur="${dur}s" repeatCount="indefinite" ${extra}/>`;
+const ease = n =>
+  `calcMode="spline" keyTimes="${Array.from({length: n}, (_, i) => (i / (n - 1)).toFixed(3)).join(";")}" ` +
+  `keySplines="${Array(n - 1).fill(".45 0 .55 1").join(";")}"`;
+
+/* Phase 0 is rounded exactly as the static drawing was, so the wave at rest is unchanged. */
+const wavePoints = phase => Array.from({length: 30}, (_, i) =>
+  `${30+i*9},${(100 - Math.sin(i*0.52 + phase)*(13+i)).toFixed(phase === 0 ? 0 : 1)}`).join(" ");
+
+const MOTIF = {
+  /* lines of text, rewritten */
+  doc: () =>
+    [0,1,2,3,4].map(i => {
+      const w = 252-((i*53)%110);
+      return `<rect x="34" y="${46+i*22}" width="${w}" height="8" rx="4" fill="${i===0 ? "currentColor" : LINE}">` +
+        anim("width", `${w};${Math.round(w*.6)};${w}`, 4, `begin="${i*.35}s" ${ease(3)}`) + `</rect>`;
+    }).join(""),
+
+  /* a marker moving along the incidents */
   timeline: () =>
     `<line x1="34" y1="112" x2="286" y2="112" stroke="${LINE}" stroke-width="3"/>` +
     [0,1,2,3,4].map(i => `<circle cx="${44+i*52}" cy="112" r="5" fill="${LINE}"/>`).join("") +
-    `<circle cx="148" cy="112" r="10" fill="currentColor"/>` +
+    `<circle cx="148" cy="112" r="10" fill="currentColor">` +
+      anim("cx", "148;200;252;252;44;96;148", 9, `keyTimes="0;.18;.36;.54;.64;.82;1"`) + `</circle>` +
     [0,1].map(i => `<rect x="34" y="${52+i*18}" width="${180-i*60}" height="7" rx="3.5" fill="${LINE}"/>`).join(""),
 
-  /* lineage: several sources, one governed table, several consumers */
+  /* lineage: several sources, one governed table, several consumers; data flows through */
   lineage: () => {
     const box = (x, y, w, c) =>
       `<rect x="${x}" y="${y}" width="${w}" height="26" rx="5" fill="none" stroke="${c}" stroke-width="2.5"/>`;
+    /* The drawn connector stays solid; while playing, a short packet travels along it
+       (accent on grey lines, text colour on accent lines) and fades in and out each cycle. */
+    const path = (d, c) =>
+      `<path d="${d}" fill="none" stroke="${c}" stroke-width="2.5"/>` +
+      `<path d="${d}" fill="none" stroke="${c === LINE ? "currentColor" : "var(--fg)"}" stroke-width="3" stroke-linecap="round"
+        stroke-dasharray="10 120" stroke-dashoffset="10" opacity="0">` +
+      anim("stroke-dashoffset", "10;-52", 1.8) + anim("opacity", "0;1;1;0", 1.8, `keyTimes="0;.15;.85;1"`) + `</path>`;
     return box(30,48,62,LINE) + box(30,106,62,LINE) + box(132,77,66,"currentColor") +
       box(238,48,56,LINE) + box(238,106,56,LINE) +
-      `<path d="M92,61 C114,61 112,90 132,90" fill="none" stroke="${LINE}" stroke-width="2.5"/>
-       <path d="M92,119 C114,119 112,90 132,90" fill="none" stroke="${LINE}" stroke-width="2.5"/>
-       <path d="M198,90 C220,90 218,61 238,61" fill="none" stroke="currentColor" stroke-width="2.5"/>
-       <path d="M198,90 C220,90 218,119 238,119" fill="none" stroke="currentColor" stroke-width="2.5"/>`;
+      path("M92,61 C114,61 112,90 132,90", LINE) + path("M92,119 C114,119 112,90 132,90", LINE) +
+      path("M198,90 C220,90 218,61 238,61", "currentColor") + path("M198,90 C220,90 218,119 238,119", "currentColor");
   },
 
+  /* metrics rising and falling */
   bars: () => {
     const h = [40,68,32,86,56,96,48];
-    return h.map((v,i) =>
-      `<rect x="${34+i*36}" y="${146-v}" width="22" height="${v}" rx="4"
-       fill="${i%3===0 ? "currentColor" : LINE}"/>`).join("") +
-      `<line x1="28" y1="148" x2="292" y2="148" stroke="${LINE}" stroke-width="2"/>`;
+    return h.map((v,i) => {
+      const v2 = Math.round(v*.72), timing = `begin="${i*.3}s" ${ease(3)}`;
+      return `<rect x="${34+i*36}" y="${146-v}" width="22" height="${v}" rx="4" fill="${i%3===0 ? "currentColor" : LINE}">` +
+        anim("height", `${v};${v2};${v}`, 3.6, timing) + anim("y", `${146-v};${146-v2};${146-v}`, 3.6, timing) + `</rect>`;
+    }).join("") +
+    `<line x1="28" y1="148" x2="292" y2="148" stroke="${LINE}" stroke-width="2"/>`;
   },
 
+  /* the human / AI share shifting */
   meter: () =>
     `<rect x="44" y="80" width="232" height="20" rx="10" fill="${LINE}"/>
-     <rect x="44" y="80" width="128" height="20" rx="10" fill="currentColor"/>` +
+     <rect x="44" y="80" width="128" height="20" rx="10" fill="currentColor">${anim("width", "128;158;128", 5, ease(3))}</rect>` +
     [0,1,2,3].map(i => `<rect x="${44+i*60}" y="118" width="42" height="7" rx="3.5" fill="${LINE}"/>`).join("") +
     `<rect x="44" y="52" width="92" height="9" rx="4.5" fill="${LINE}"/>`,
 
-  /* nested frames — context inside context */
+  /* nested frames — context inside context, pulsing inward */
   context: () =>
     [0,1,2].map(i =>
       `<rect x="${72+i*22}" y="${44+i*16}" width="${176-i*44}" height="${92-i*32}" rx="7"
-       fill="none" stroke="${i===1 ? "currentColor" : LINE}" stroke-width="2.5"/>`).join(""),
+       fill="none" stroke="${i===1 ? "currentColor" : LINE}" stroke-width="2.5">` +
+      anim("opacity", "1;.3;1", 3.6, `begin="${i*.6}s" ${ease(3)}`) + `</rect>`).join(""),
 
+  /* log lines written out one by one */
   code: () =>
-    [0,1,2,3,4,5].map(i =>
-      `<rect x="${38+(i%3)*18}" y="${48+i*18}" width="${186-((i*31)%88)}" height="7" rx="3.5"
-       fill="${(i===0||i===3) ? "currentColor" : LINE}"/>`).join(""),
+    [0,1,2,3,4,5].map(i => {
+      const w = 186-((i*31)%88);
+      return `<rect x="${38+(i%3)*18}" y="${48+i*18}" width="${w}" height="7" rx="3.5"
+       fill="${(i===0||i===3) ? "currentColor" : LINE}">` +
+        anim("width", `${w};0;0;${w};${w}`, 6, `keyTimes="0;.06;${(.06+i*.1).toFixed(2)};${(.18+i*.1).toFixed(2)};1"`) + `</rect>`;
+    }).join(""),
 
-  wave: () => {
-    const pts = Array.from({length: 30}, (_, i) =>
-      `${30+i*9},${(100 - Math.sin(i*0.52)*(13+i)).toFixed(0)}`).join(" ");
-    return `<polyline points="${pts}" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>` +
-      Array.from({length: 8}, (_, i) =>
-        `<rect x="${30+i*34}" y="132" width="24" height="7" rx="3.5" fill="${LINE}"/>`).join("");
-  },
+  /* a rolling wave over pulsing steps */
+  wave: () =>
+    `<polyline points="${wavePoints(0)}" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round">` +
+      anim("points", [0,1.6,3.2,1.6,0].map(wavePoints).join(";"), 5, ease(5)) + `</polyline>` +
+    Array.from({length: 8}, (_, i) =>
+      `<rect x="${30+i*34}" y="132" width="24" height="7" rx="3.5" fill="${LINE}">` +
+      anim("opacity", "1;.35;1", 1.2, `begin="${(i*.15).toFixed(2)}s"`) + `</rect>`).join(""),
 
+  /* overlapping forms drifting */
   shapes: () =>
     `<circle cx="116" cy="92" r="36" fill="none" stroke="currentColor" stroke-width="3.5"/>
-     <circle cx="158" cy="92" r="36" fill="none" stroke="currentColor" stroke-width="3.5" opacity=".5"/>
-     <polygon points="232,54 274,130 190,130" fill="none" stroke="${LINE}" stroke-width="3.5"/>`,
+     <circle cx="158" cy="92" r="36" fill="none" stroke="currentColor" stroke-width="3.5" opacity=".5">${anim("cx", "158;138;158", 4, ease(3))}</circle>
+     <polygon points="232,54 274,130 190,130" fill="none" stroke="${LINE}" stroke-width="3.5">
+       <animateTransform attributeName="transform" type="rotate" values="0 232 105;360 232 105" dur="14s" repeatCount="indefinite"/></polygon>`,
 
-  quads: () =>
-    `<polygon points="34,56 150,44 150,136 34,124" fill="none" stroke="currentColor" stroke-width="3.5"/>
-     <polygon points="176,44 292,58 292,124 176,138" fill="none" stroke="${LINE}" stroke-width="3.5"/>` +
-    [1,2,3].map(i => `<line x1="${34+i*29}" y1="${53+i}" x2="${34+i*29}" y2="${127-i}"
-      stroke="${LINE}" stroke-width="1.5"/>`).join("")
+  /* two projection surfaces being warped */
+  quads: () => {
+    const a = "34,56 150,44 150,136 34,124",  a2 = "34,48 150,52 150,128 34,132";
+    const b = "176,44 292,58 292,124 176,138", b2 = "176,52 292,48 292,132 176,128";
+    return `<polygon points="${a}" fill="none" stroke="currentColor" stroke-width="3.5">${anim("points", `${a};${a2};${a}`, 5, ease(3))}</polygon>
+      <polygon points="${b}" fill="none" stroke="${LINE}" stroke-width="3.5">${anim("points", `${b};${b2};${b}`, 5, `begin="1.2s" ${ease(3)}`)}</polygon>` +
+      [1,2,3].map(i => `<line x1="${34+i*29}" y1="${53+i}" x2="${34+i*29}" y2="${127-i}"
+        stroke="${LINE}" stroke-width="1.5"/>`).join("");
+  }
 };
 
 function thumbHTML(p) {
@@ -168,6 +210,24 @@ function thumbHTML(p) {
   const draw = MOTIF[p.kind];
   if (!draw) return `<div class="thumb"></div>`;
   return `<div class="thumb"><svg viewBox="0 0 320 180" aria-hidden="true">${draw()}</svg></div>`;
+}
+
+/* Motion on hover or keyboard focus only. Cards are re-rendered on every
+   language switch, so this runs after each render() and re-binds. */
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+function attachMotion() {
+  document.querySelectorAll(".card").forEach(card => {
+    const svg = card.querySelector(".thumb svg");
+    if (!svg || !svg.pauseAnimations) return;
+    const stop = () => { svg.pauseAnimations(); svg.setCurrentTime(0); };
+    const play = () => { if (!reduceMotion.matches) svg.unpauseAnimations(); };
+    stop();
+    card.addEventListener("mouseenter", play);
+    card.addEventListener("focus", play);
+    card.addEventListener("mouseleave", stop);
+    card.addEventListener("blur", stop);
+  });
 }
 
 let lang = "en";
@@ -199,6 +259,7 @@ function render() {
     document.getElementById(`count-${key}`).textContent = `${list.length} ${word}`;
     document.getElementById(`n-${key}`).textContent = `${list.length} ${word}`;
   }
+  attachMotion();
 }
 
 function applyLang() {
