@@ -51,17 +51,17 @@ const PROJECTS = {
     },
     {
       title: "AI Strategic Context Engine", kind: "context",
-      en: "Client work: a system for grounding strategic decisions in an organization's own context. Described here, not linked.",
-      es: "Trabajo de cliente: un sistema para anclar decisiones estratégicas en el contexto propio de una organización. Aquí descrito, sin enlace.",
-      tags: ["Client work", "Confidential"], status: "described",
-      href: null
+      en: "My own framework for turning scattered project information into strategic context that people and AI models can both use. Applied in client sessions; its prompts and client material stay private.",
+      es: "Un marco propio para convertir información dispersa de un proyecto en contexto estratégico que pueden usar tanto las personas como los modelos de IA. Aplicado en sesiones con clientes; sus prompts y el material de clientes son privados.",
+      tags: ["Framework", "Strategy"], status: "described",
+      href: "aisce/"
     },
     {
       title: "Local Governance Knowledge Base", kind: "code",
       en: "A local, deterministic pipeline that builds and maintains a governance knowledge base. Shared as a write-up.",
       es: "Pipeline local y determinista que construye y mantiene una base de conocimiento de gobernanza. Compartido como reseña.",
       tags: ["Agents", "Pipeline"], status: "private",
-      href: null
+      href: "local-kb/"
     }
   ],
   creative: [
@@ -215,6 +215,7 @@ document.getElementById("lang").addEventListener("click", e => {
   const btn = e.target.closest("button");
   if (!btn) return;
   lang = btn.dataset.lang;
+  try { localStorage.setItem("lang", lang); } catch (e) { /* ignore */ }
   document.querySelectorAll("#lang button")
     .forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
   applyLang();
@@ -244,6 +245,15 @@ themeBtn.addEventListener("click", () => {
   try { localStorage.setItem("theme", next); } catch (e) { /* ignore */ }
   paintThemeBtn();
 });
+
+/* The language choice is remembered so the description pages open in it too. */
+try {
+  if (localStorage.getItem("lang") === "es") {
+    lang = "es";
+    document.querySelectorAll("#lang button")
+      .forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === "es")));
+  }
+} catch (e) { /* ignore */ }
 
 paintThemeBtn();
 applyLang();

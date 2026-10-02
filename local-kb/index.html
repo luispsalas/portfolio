@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local Governance Knowledge Base — Luis P. Salas</title>
+<meta name="description" content="A governance knowledge base built and run on a small CPU-only machine with local models — and why it was rebuilt from an agent crew into a deterministic pipeline.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%230969da'/></svg>">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap row">
+    <span class="who"><a href="../" data-en="← Luis P. Salas" data-es="← Luis P. Salas">← Luis P. Salas</a></span>
+    <span class="chip" data-en="Draft" data-es="Borrador">Draft</span>
+    <button class="icon-btn" id="theme" aria-label="Switch theme">☾</button>
+    <div class="seg" id="lang" role="group" aria-label="Language">
+      <button data-lang="en" aria-pressed="true">EN</button>
+      <button data-lang="es" aria-pressed="false">ES</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+<article class="doc">
+
+  <p class="kicker" data-en="AI Enablement &amp; Governance · Write-up" data-es="Habilitación y Gobernanza de IA · Reseña">AI Enablement &amp; Governance · Write-up</p>
+  <h1>Local Governance Knowledge Base</h1>
+  <p class="lede"
+     data-en="A personal knowledge base on AI governance, AI literacy and observability, built and run entirely on a <strong>small machine with no GPU</strong>, using local models only."
+     data-es="Una base de conocimiento personal sobre gobernanza de IA, alfabetización en IA y observabilidad, construida y operada por completo en una <strong>máquina pequeña sin GPU</strong>, solo con modelos locales.">
+    A personal knowledge base on AI governance, AI literacy and observability, built and run entirely on a <strong>small machine with no GPU</strong>, using local models only.</p>
+
+  <ul class="facts">
+    <li class="tag" data-en="Ryzen 5 · 16 GB · no GPU" data-es="Ryzen 5 · 16 GB · sin GPU">Ryzen 5 · 16 GB · no GPU</li>
+    <li class="tag">Ubuntu · Docker Compose</li>
+    <li class="tag">Ollama · Qdrant · FastAPI</li>
+    <li class="tag" data-en="May–Aug 2026" data-es="May–ago 2026">May–Aug 2026</li>
+  </ul>
+
+  <h2 data-en="What it does" data-es="Qué hace">What it does</h2>
+  <p data-en="A pipeline finds candidate sources, decides which to keep, stores them for retrieval and writes a short human-readable summary of what was added. On top of it sits a chat that answers questions from the stored material and cites where each answer came from."
+     data-es="Un pipeline encuentra fuentes candidatas, decide cuáles conservar, las almacena para su recuperación y redacta un breve resumen legible de lo que se agregó. Sobre él funciona un chat que responde preguntas a partir del material almacenado y cita de dónde sale cada respuesta.">
+    A pipeline finds candidate sources, decides which to keep, stores them for retrieval and writes a short human-readable summary of what was added. On top of it sits a chat that answers questions from the stored material and cites where each answer came from.</p>
+
+  <h2 data-en="The decision that mattered" data-es="La decisión que importó">The decision that mattered</h2>
+  <p data-en="It began as a crew of six AI agents (CrewAI), each deciding for itself how to search, ingest, summarize and register sources. It took <strong>18 runs</strong> to reach one clean end-to-end pass, and even that needed manual correction."
+     data-es="Empezó como un equipo de seis agentes de IA (CrewAI), cada uno decidiendo por su cuenta cómo buscar, ingerir, resumir y registrar fuentes. Hicieron falta <strong>18 ejecuciones</strong> para lograr una pasada completa sin errores, y aun esa requirió corrección manual.">
+    It began as a crew of six AI agents (CrewAI), each deciding for itself how to search, ingest, summarize and register sources. It took <strong>18 runs</strong> to reach one clean end-to-end pass, and even that needed manual correction.</p>
+  <p data-en="None of those failures were reasoning failures. Models invented tool inputs, skipped tool calls, looped on the same query and copied example values into real records. Looking back at the fix history, every fix had been quietly removing agency, which meant the task had been deterministic all along."
+     data-es="Ninguna de esas fallas fue de razonamiento. Los modelos inventaban entradas para las herramientas, omitían llamadas, repetían la misma consulta en bucle y copiaban valores de ejemplo en registros reales. Al revisar el historial de correcciones, cada una había ido quitando autonomía en silencio, lo que significaba que la tarea siempre había sido determinista.">
+    None of those failures were reasoning failures. Models invented tool inputs, skipped tool calls, looped on the same query and copied example values into real records. Looking back at the fix history, every fix had been quietly removing agency, which meant the task had been deterministic all along.</p>
+  <p data-en="So it was rebuilt as plain code, with the model called at only the two points that genuinely need judgment: deciding whether a source is worth keeping, and writing the summary. LLM calls per run went from <strong>6 to 2</strong>, and the new pipeline passed its first contract test <strong>10/10</strong>."
+     data-es="Así que se reconstruyó como código convencional, llamando al modelo solo en los dos puntos que realmente requieren criterio: decidir si una fuente vale la pena y redactar el resumen. Las llamadas al modelo por ejecución pasaron de <strong>6 a 2</strong>, y el nuevo pipeline superó su primera prueba de contrato con <strong>10/10</strong>.">
+    So it was rebuilt as plain code, with the model called at only the two points that genuinely need judgment: deciding whether a source is worth keeping, and writing the summary. LLM calls per run went from <strong>6 to 2</strong>, and the new pipeline passed its first contract test <strong>10/10</strong>.</p>
+
+  <h2 data-en="What it taught" data-es="Lo que enseñó">What it taught</h2>
+  <ul>
+    <li data-en="<strong>Use an agent only where there is real ambiguity.</strong> For everything else, write code and save the model for the one or two judgment calls that cannot be automated."
+        data-es="<strong>Usar un agente solo donde hay ambigüedad real.</strong> Para todo lo demás, escribir código y reservar el modelo para las una o dos decisiones de criterio que no se pueden automatizar.">
+      <strong>Use an agent only where there is real ambiguity.</strong> For everything else, write code and save the model for the one or two judgment calls that cannot be automated.</li>
+    <li data-en="<strong>Test models on the real task, and rank them by the constraint that actually binds.</strong> Without a GPU that constraint was speed and heat, not answer quality. The model with perfect citations took 97 s per answer and pushed the processor to 90.6 °C, so the chat runs on a smaller model that answers in 43 s, while the larger one handles the slower batch work."
+        data-es="<strong>Evaluar los modelos en la tarea real y ordenarlos según la restricción que de verdad limita.</strong> Sin GPU, esa restricción era la velocidad y el calor, no la calidad de las respuestas. El modelo con citas perfectas tardaba 97 s por respuesta y llevaba el procesador a 90.6 °C, así que el chat funciona con un modelo más pequeño que responde en 43 s, mientras el más grande se encarga del trabajo por lotes, menos urgente.">
+      <strong>Test models on the real task, and rank them by the constraint that actually binds.</strong> Without a GPU that constraint was speed and heat, not answer quality. The model with perfect citations took 97 s per answer and pushed the processor to 90.6 °C, so the chat runs on a smaller model that answers in 43 s, while the larger one handles the slower batch work.</li>
+    <li data-en="<strong>Tell a small model what it may do, not what it must not.</strong> Rules phrased as prohibitions were ignored. Giving the model the exact list of sources it was allowed to cite cut invented citations from 75% to 0% in a controlled test."
+        data-es="<strong>Decirle a un modelo pequeño lo que puede hacer, no lo que no debe hacer.</strong> Las reglas formuladas como prohibiciones se ignoraban. Darle al modelo la lista exacta de fuentes que podía citar redujo las citas inventadas del 75% al 0% en una prueba controlada.">
+      <strong>Tell a small model what it may do, not what it must not.</strong> Rules phrased as prohibitions were ignored. Giving the model the exact list of sources it was allowed to cite cut invented citations from 75% to 0% in a controlled test.</li>
+    <li data-en="<strong>Check every output against what was actually retrieved.</strong> The first citation guard only inspected malformed citations, so an invented one that happened to look correct passed straight through. It now checks every citation against the retrieved sources and flags anything it cannot match."
+        data-es="<strong>Verificar cada resultado contra lo que realmente se recuperó.</strong> El primer control de citas solo revisaba las que tenían formato incorrecto, así que una cita inventada con apariencia correcta pasaba sin problema. Ahora contrasta cada cita con las fuentes recuperadas y marca todo lo que no logra emparejar.">
+      <strong>Check every output against what was actually retrieved.</strong> The first citation guard only inspected malformed citations, so an invented one that happened to look correct passed straight through. It now checks every citation against the retrieved sources and flags anything it cannot match.</li>
+  </ul>
+
+  <div class="callout">
+    <span class="mark" aria-hidden="true">!</span>
+    <p data-en="<strong>A write-up, not a repository.</strong> The system runs on personal infrastructure, so its code and configuration stay private. This page summarizes the build and what it showed."
+       data-es="<strong>Una reseña, no un repositorio.</strong> El sistema funciona en infraestructura personal, así que su código y configuración son privados. Esta página resume la construcción y lo que demostró.">
+      <strong>A write-up, not a repository.</strong> The system runs on personal infrastructure, so its code and configuration stay private. This page summarizes the build and what it showed.</p>
+  </div>
+
+  <a class="back" href="../" data-en="← All projects" data-es="← Todos los proyectos">← All projects</a>
+
+</article>
+</main>
+
+<script src="../assets/page.js"></script>
+</body>
+</html>

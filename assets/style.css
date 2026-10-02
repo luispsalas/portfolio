@@ -290,3 +290,26 @@ footer { border-top: 1px solid var(--border); padding-block: var(--s6) var(--s8)
 
 .btn.disabled { color: var(--fg-subtle); cursor: default; }
 .btn.disabled:hover { border-color: var(--border); color: var(--fg-subtle); }
+
+/* ---------- Description pages (aisce/, local-kb/) ---------- */
+.topbar .who a { color: var(--fg); }
+.doc { max-width: 72ch; padding-block: var(--s7) var(--s6); }
+.doc .kicker {
+  font-family: var(--mono); font-size: var(--t-xs); letter-spacing: .06em;
+  text-transform: uppercase; color: var(--fg-subtle); margin: 0 0 var(--s2);
+}
+.doc h1 { font-size: var(--t-xl); font-weight: 600; letter-spacing: -.015em; line-height: 1.25; margin: 0 0 var(--s4); }
+.doc .lede { margin-bottom: var(--s5); }
+.doc h2 {
+  font-size: var(--t-lg); font-weight: 600; letter-spacing: -.01em;
+  margin: var(--s7) 0 var(--s3); padding-bottom: var(--s2); border-bottom: 1px solid var(--border);
+}
+.doc p, .doc li { color: var(--fg); text-wrap: pretty; }
+.doc p { margin: 0 0 var(--s4); }
+.doc ul, .doc ol { margin: 0 0 var(--s4); padding-left: var(--s5); }
+.doc li { margin-bottom: var(--s2); }
+.doc li strong, .doc p strong { font-weight: 600; }
+.doc .facts { display: flex; flex-wrap: wrap; gap: var(--s2); margin: 0 0 var(--s5); padding: 0; list-style: none; }
+.doc .facts li { margin: 0; }
+.doc .callout { margin: var(--s5) 0; }
+.doc .back { display: inline-block; margin-top: var(--s6); font-weight: 600; }
