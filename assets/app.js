@@ -16,15 +16,15 @@ const PROJECTS = {
   governance: [
     {
       title: "Applied AI Concepts", kind: "doc",
-      en: "A living wiki of core AI concepts — sourced, plainly explained, each entry ending with governance notes.",
-      es: "Wiki vivo de conceptos clave de IA — con fuentes, explicados con claridad y notas de gobernanza en cada entrada.",
+      en: "A living wiki of core AI concepts: sourced, plainly explained, each entry ending with governance notes.",
+      es: "Wiki de conceptos clave de IA: con fuentes, explicados con claridad y notas de gobernanza en cada entrada.",
       tags: ["Wiki", "Editorial"], status: "live",
       href: "https://luispsalas.github.io/applied-ai-concepts/"
     },
     {
       title: "Autonomous AI Casebook", kind: "timeline",
       en: "Reconstructions of incidents where an AI system's autonomy was central to real harm, built from primary sources.",
-      es: "Reconstrucciones de incidentes donde la autonomía de un sistema de IA fue central al daño, desde fuentes primarias.",
+      es: "Reconstrucciones de incidentes donde la autonomía de un sistema de IA fue central al daño, basadas en fuentes primarias.",
       tags: ["Casebook", "Primary sources"], status: "live",
       href: "https://github.com/luispsalas/autonomous-ai-casebook"
     },
@@ -51,8 +51,8 @@ const PROJECTS = {
     },
     {
       title: "AI Governance Scorecard", kind: "bars",
-      en: "An interactive reference covering 42 AI metrics across 11 lifecycle layers — what to measure, how, and when.",
-      es: "Referencia interactiva con 42 métricas de IA en 11 capas del ciclo de vida — qué medir, cómo y cuándo.",
+      en: "An interactive reference covering 42 AI metrics across 11 lifecycle layers: what to measure, how, and when.",
+      es: "Referencia interactiva con 42 métricas de IA en 11 capas del ciclo de vida: qué medir, cómo y cuándo.",
       tags: ["Reference", "Metrics"], status: "live",
       href: "https://luispsalas.github.io/ai-governance-scorecard/"
     },
@@ -74,8 +74,8 @@ const PROJECTS = {
   creative: [
     {
       title: "Idiorritmos", kind: "wave",
-      en: "An idiorhythmic texturizer — everlasting layers of sound chopped by human rhythm. Max/MSP gen~ exported to AU/VST3.",
-      es: "Un texturizador idiorrítmico — capas perpetuas de sonido cortadas por ritmo humano. Max/MSP gen~ exportado a AU/VST3.",
+      en: "An idiorhythmic texturizer: everlasting layers of sound chopped by human rhythm. Max/MSP gen~ exported to AU/VST3.",
+      es: "Un texturizador idiorrítmico: capas perpetuas de sonido cortadas por ritmo humano. Max/MSP gen~ exportado a AU/VST3.",
       tags: ["Max/MSP", "RNBO", "Plugin"], status: "soon",
       href: "https://github.com/luispsalas/Idiorritmos"
     },
