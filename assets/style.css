@@ -288,6 +288,9 @@ footer { border-top: 1px solid var(--border); padding-block: var(--s6) var(--s8)
   * { transition: none !important; }
 }
 
+button.btn { font: inherit; font-size: var(--t-base); font-weight: 600; cursor: pointer; }
+/* Shown when copying is refused: the address itself, selectable by hand. */
+.btn.show-address { font-family: var(--mono); font-weight: 400; user-select: all; }
 .btn.disabled { color: var(--fg-subtle); cursor: default; }
 .btn.disabled:hover { border-color: var(--border); color: var(--fg-subtle); }
 

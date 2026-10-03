@@ -36,6 +36,13 @@ const PROJECTS = {
       href: "https://github.com/luispsalas/governed-data-platform"
     },
     {
+      title: "Local Governance Knowledge Base", kind: "code",
+      en: "A local, deterministic pipeline that builds and maintains a governance knowledge base. Shared as a write-up.",
+      es: "Pipeline local y determinista que construye y mantiene una base de conocimiento de gobernanza. Compartido como reseña.",
+      tags: ["Agents", "Pipeline"], status: "private",
+      href: "local-kb/"
+    },
+    {
       title: "Governed Runtime Detection", kind: "detect",
       en: "Deciding what a runtime security tool should alert on, and proving it does: business questions, rules and a hands-on Falco lab on Kubernetes. Shared as a write-up.",
       es: "Decidir sobre qué debe alertar una herramienta de seguridad en tiempo de ejecución, y demostrar que lo hace: preguntas de negocio, reglas y un laboratorio práctico con Falco sobre Kubernetes. Compartido como reseña.",
@@ -62,13 +69,6 @@ const PROJECTS = {
       es: "Un marco propio para convertir información dispersa de un proyecto en contexto estratégico que pueden usar tanto las personas como los modelos de IA. Aplicado en sesiones con clientes; sus prompts y el material de clientes son privados.",
       tags: ["Framework", "Strategy"], status: "described",
       href: "aisce/"
-    },
-    {
-      title: "Local Governance Knowledge Base", kind: "code",
-      en: "A local, deterministic pipeline that builds and maintains a governance knowledge base. Shared as a write-up.",
-      es: "Pipeline local y determinista que construye y mantiene una base de conocimiento de gobernanza. Compartido como reseña.",
-      tags: ["Agents", "Pipeline"], status: "private",
-      href: "local-kb/"
     }
   ],
   creative: [
@@ -305,6 +305,34 @@ document.getElementById("lang").addEventListener("click", e => {
   document.querySelectorAll("#lang button")
     .forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
   applyLang();
+});
+
+/* Copy the email address. mailto: opens a mail app, which not every visitor
+   uses, so this puts the address on the clipboard instead. If the browser
+   refuses, the button shows the address itself so it can be selected by hand. */
+const copyBtn = document.getElementById("copy-email");
+let copyTimer;
+copyBtn.addEventListener("click", async () => {
+  const address = copyBtn.dataset.email;
+  clearTimeout(copyTimer);
+  let hold = 2500;
+  try {
+    await navigator.clipboard.writeText(address);
+    copyBtn.textContent = lang === "en" ? "Copied" : "Copiado";
+  } catch (e) {
+    copyBtn.textContent = address;
+    copyBtn.classList.add("show-address");
+    hold = 10000;   /* long enough to select it by hand */
+  }
+  copyTimer = setTimeout(() => {
+    copyBtn.classList.remove("show-address");
+    copyBtn.textContent = copyBtn.getAttribute(`data-${lang}`);
+  }, hold);
+});
+/* A language switch rewrites the label, so drop any copy state with it. */
+document.getElementById("lang").addEventListener("click", () => {
+  clearTimeout(copyTimer);
+  copyBtn.classList.remove("show-address");
 });
 
 /* Light / dark switch. Dark is the default; a visitor's choice is remembered. */
