@@ -11,9 +11,20 @@ function applyLang() {
     const v = el.getAttribute(`data-${lang}`);
     if (v !== null) el.innerHTML = v;
   });
+  labelCells();
   document.querySelectorAll("#lang button")
     .forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
   root.lang = lang;
+}
+
+/* Tables stack as cards on phones (style.css); each cell shows its column name,
+   taken from the header so it follows the current language. */
+function labelCells() {
+  document.querySelectorAll(".doc table").forEach(table => {
+    const heads = [...table.querySelectorAll("thead th")].map(th => th.textContent.trim());
+    table.querySelectorAll("tbody tr").forEach(tr =>
+      [...tr.children].forEach((td, i) => { if (heads[i]) td.dataset.label = heads[i]; }));
+  });
 }
 
 document.getElementById("lang").addEventListener("click", e => {

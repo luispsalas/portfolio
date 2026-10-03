@@ -313,3 +313,59 @@ footer { border-top: 1px solid var(--border); padding-block: var(--s6) var(--s8)
 .doc .facts li { margin: 0; }
 .doc .callout { margin: var(--s5) 0; }
 .doc .back { display: inline-block; margin-top: var(--s6); font-weight: 600; }
+
+/* ---------- Write-up components (runtime-detection/): tables, code, diagrams, flow ---------- */
+.doc .table-wrap { overflow-x: auto; margin: 0 0 var(--s5); border: 1px solid var(--border); border-radius: var(--radius); }
+.doc table { border-collapse: collapse; width: 100%; font-size: var(--t-sm); line-height: 1.5; }
+.doc th, .doc td { padding: var(--s2) var(--s3); text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-muted); }
+.doc th { background: var(--bg-subtle); font-weight: 600; color: var(--fg); }
+.doc tbody tr:last-child td { border-bottom: 0; }
+.doc td { color: var(--fg); }
+.doc td.muted { color: var(--fg-muted); }
+.doc pre {
+  background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: var(--s4); overflow-x: auto; margin: 0 0 var(--s5);
+  font-family: var(--mono); font-size: var(--t-xs); line-height: 1.6; color: var(--fg);
+}
+.doc code { font-family: var(--mono); font-size: .9em; }
+.doc pre .c { color: var(--fg-subtle); }
+.doc figure { margin: 0 0 var(--s5); }
+.doc .fig-scroll { overflow-x: auto; }
+.doc figure svg { display: block; width: 100%; min-width: 600px; height: auto; }
+.doc figcaption { font-size: var(--t-sm); color: var(--fg-muted); margin-top: var(--s2); }
+.dg-host { fill: none; stroke: var(--border); stroke-dasharray: 5 4; }
+.dg-box  { fill: var(--bg-subtle); stroke: var(--border); }
+.dg-acc  { fill: var(--accent-wash); stroke: var(--accent); }
+.dg-line { fill: none; stroke: var(--fg-subtle); stroke-width: 1.5; }
+.dg-dash { stroke-dasharray: 4 4; }
+.dg-accline { stroke: var(--accent); }
+.dg-head { fill: var(--fg-subtle); }
+.dg-head.acc { fill: var(--accent); }
+.dg-t { fill: var(--fg); font: 600 14px var(--font); }
+.dg-m { fill: var(--fg-muted); font: 12px var(--font); }
+.dg-k { fill: var(--fg-subtle); font: 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.doc .flow { list-style: none; padding: 0; margin: 0 0 var(--s3); }
+.doc .flow li { position: relative; margin: 0; padding: 0 0 var(--s4) var(--s6); }
+.doc .flow li::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: -8px; width: 1px; background: var(--border); }
+.doc .flow li:last-child::before { display: none; }
+.doc .flow li::after { content: ""; position: absolute; left: 2px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); }
+.doc .flow .what { color: var(--fg-muted); }
+.doc .flow .ex { display: block; margin-top: var(--s1); padding-left: var(--s3); border-left: 2px solid var(--border); font-size: var(--t-sm); color: var(--fg-muted); }
+.doc .loop { font-size: var(--t-sm); color: var(--fg-muted); margin: 0 0 var(--s5) var(--s6); }
+
+/* Tables stack as cards on narrow screens. Each cell is labelled with its column
+   header (data-label, set by page.js from the <th>, so it follows the language switch).
+   The first cell is the card's title, so it carries no label. */
+@media (max-width: 600px) {
+  .doc .table-wrap { border: 0; overflow: visible; }
+  .doc table, .doc tbody, .doc tr, .doc td { display: block; width: 100%; }
+  .doc thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .doc tr { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--s3); background: var(--bg); overflow: hidden; }
+  .doc td, .doc tbody tr:last-child td { border: 0; padding: var(--s2) var(--s4); }
+  .doc td:first-child { background: var(--bg-subtle); border-bottom: 1px solid var(--border-muted); }
+  .doc td:not(:first-child)[data-label]::before {
+    content: attr(data-label); display: block; margin-bottom: 2px;
+    font-family: var(--mono); font-size: var(--t-xs); letter-spacing: .06em;
+    text-transform: uppercase; color: var(--fg-subtle);
+  }
+}

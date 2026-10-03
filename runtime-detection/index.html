@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Governed Runtime Detection — Luis P. Salas</title>
+<meta name="description" content="Deciding what a runtime security tool should watch for, and proving it works: the questions to ask the business, how an answer becomes a Falco rule on Kubernetes, and what a hands-on lab surfaced.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%230969da'/></svg>">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap row">
+    <span class="who"><a href="../" data-en="← Luis P. Salas" data-es="← Luis P. Salas">← Luis P. Salas</a></span>
+    <span class="chip" data-en="Draft" data-es="Borrador">Draft</span>
+    <button class="icon-btn" id="theme" aria-label="Switch theme">☾</button>
+    <div class="seg" id="lang" role="group" aria-label="Language">
+      <button data-lang="en" aria-pressed="true">EN</button>
+      <button data-lang="es" aria-pressed="false">ES</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+<article class="doc">
+
+  <p class="kicker" data-en="AI Enablement &amp; Governance · Write-up" data-es="Habilitación y Gobernanza de IA · Reseña">AI Enablement &amp; Governance · Write-up</p>
+  <h1>Governed Runtime Detection</h1>
+  <p class="lede"
+     data-en="A security tool can watch everything a container does. The hard part is deciding <strong>what it should alert on</strong>, and proving that it does. This is a hands-on lab with Falco on Kubernetes, written up from the business side: the questions to ask, how an answer becomes a rule, and how to show the rule is real."
+     data-es="Una herramienta de seguridad puede observar todo lo que hace un contenedor. Lo difícil es decidir <strong>sobre qué debe alertar</strong> y demostrar que lo hace. Este es un laboratorio práctico con Falco sobre Kubernetes, contado desde el lado del negocio: las preguntas que hay que hacer, cómo una respuesta se convierte en una regla y cómo demostrar que la regla funciona.">
+    A security tool can watch everything a container does. The hard part is deciding <strong>what it should alert on</strong>, and proving that it does. This is a hands-on lab with Falco on Kubernetes, written up from the business side: the questions to ask, how an answer becomes a rule, and how to show the rule is real.</p>
+
+  <ul class="facts">
+    <li class="tag">Kubernetes (kind)</li>
+    <li class="tag">Falco · eBPF</li>
+    <li class="tag" data-en="Detection design" data-es="Diseño de detecciones">Detection design</li>
+    <li class="tag" data-en="Oct 2026" data-es="oct 2026">Oct 2026</li>
+  </ul>
+
+  <h2 data-en="Why it matters" data-es="Por qué importa">Why it matters</h2>
+  <p data-en="Prevention eventually fails: a credential leaks, a dependency is compromised, someone opens a shell where they shouldn't. <strong>Runtime detection</strong> watches what running workloads actually do and raises an alert when behavior crosses a line. Falco, an open-source CNCF project, does this by reading system calls straight from the Linux kernel, so the workloads it watches need no agent inside them."
+     data-es="La prevención, tarde o temprano, falla: se filtra una credencial, se compromete una dependencia, alguien abre una terminal donde no debería. La <strong>detección en tiempo de ejecución</strong> observa lo que las cargas de trabajo realmente hacen y alerta cuando un comportamiento cruza una línea. Falco, un proyecto de código abierto de la CNCF, lo hace leyendo las llamadas al sistema directamente desde el kernel de Linux, así que las cargas que observa no necesitan ningún agente dentro.">
+    Prevention eventually fails: a credential leaks, a dependency is compromised, someone opens a shell where they shouldn't. <strong>Runtime detection</strong> watches what running workloads actually do and raises an alert when behavior crosses a line. Falco, an open-source CNCF project, does this by reading system calls straight from the Linux kernel, so the workloads it watches need no agent inside them.</p>
+  <p data-en="The engine is the easy part. Every alert rests on a decision about <strong>what counts as abnormal here</strong>, and that is a business question before it is a technical one. A rule nobody can trace back to a reason can't be prioritized, tuned or retired, because nobody knows what turning it off would cost."
+     data-es="El motor es la parte fácil. Cada alerta se apoya en una decisión sobre <strong>qué se considera anormal aquí</strong>, y esa es una pregunta de negocio antes que técnica. Una regla que nadie puede vincular con una razón no se puede priorizar, ajustar ni retirar, porque nadie sabe cuánto costaría desactivarla.">
+    The engine is the easy part. Every alert rests on a decision about <strong>what counts as abnormal here</strong>, and that is a business question before it is a technical one. A rule nobody can trace back to a reason can't be prioritized, tuned or retired, because nobody knows what turning it off would cost.</p>
+
+  <h2 data-en="The system in one picture" data-es="El sistema en una imagen">The system in one picture</h2>
+  <figure>
+    <div class="fig-scroll">
+    <svg viewBox="0 0 720 380" role="img" aria-labelledby="sys-t sys-d">
+      <title id="sys-t">Lab architecture</title>
+      <desc id="sys-d">A Linux host runs other services and a kind container holding a whole Kubernetes cluster with an nginx pod and Falco. All of them share one kernel, where Falco's eBPF probe reads every system call and turns matches against its rules into alerts.</desc>
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-head" d="M0,0 L10,5 L0,10 z"/></marker>
+        <marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-head acc" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <rect class="dg-host" x="10" y="10" width="560" height="360" rx="8"/>
+      <text class="dg-k" x="26" y="34" data-en="Linux host" data-es="Servidor Linux">Linux host</text>
+
+      <rect class="dg-box" x="30" y="56" width="170" height="110" rx="6"/>
+      <text class="dg-t" x="115" y="104" text-anchor="middle" data-en="Other services" data-es="Otros servicios">Other services</text>
+      <text class="dg-m" x="115" y="124" text-anchor="middle" data-en="left untouched" data-es="sin tocar">left untouched</text>
+
+      <rect class="dg-host" x="220" y="56" width="330" height="200" rx="6"/>
+      <text class="dg-k" x="236" y="80" data-en="kind: a cluster in one container" data-es="kind: un clúster en un contenedor">kind: a cluster in one container</text>
+
+      <rect class="dg-box" x="240" y="96" width="130" height="70" rx="6"/>
+      <text class="dg-t" x="305" y="126" text-anchor="middle" data-en="nginx pod" data-es="Pod nginx">nginx pod</text>
+      <text class="dg-m" x="305" y="146" text-anchor="middle" data-en="the workload" data-es="la carga de trabajo">the workload</text>
+
+      <rect class="dg-acc" x="395" y="96" width="135" height="70" rx="6"/>
+      <text class="dg-t" x="462" y="126" text-anchor="middle">Falco</text>
+      <text class="dg-m" x="462" y="146" text-anchor="middle" data-en="one per node" data-es="uno por nodo">one per node</text>
+
+      <rect class="dg-box" x="395" y="196" width="105" height="40" rx="6"/>
+      <text class="dg-m" x="447" y="221" text-anchor="middle" data-en="rules (YAML)" data-es="reglas (YAML)">rules (YAML)</text>
+      <path class="dg-line" d="M447,196 L447,170" marker-end="url(#ah)"/>
+
+      <rect class="dg-acc" x="30" y="300" width="520" height="60" rx="6"/>
+      <text class="dg-t" x="290" y="326" text-anchor="middle" data-en="One shared Linux kernel" data-es="Un único kernel Linux compartido">One shared Linux kernel</text>
+      <text class="dg-m" x="290" y="346" text-anchor="middle" data-en="Falco's eBPF probe sees every system call, from every container" data-es="La sonda eBPF de Falco ve cada llamada al sistema, de cada contenedor">Falco's eBPF probe sees every system call, from every container</text>
+
+      <path class="dg-line dg-dash" d="M305,166 L305,296" marker-end="url(#ah)"/>
+      <text class="dg-m" x="298" y="232" text-anchor="end" data-en="syscalls" data-es="llamadas">syscalls</text>
+      <path class="dg-line dg-dash" d="M115,166 L115,296" marker-end="url(#ah)"/>
+      <path class="dg-line dg-accline" d="M518,300 L518,170" marker-end="url(#aha)"/>
+
+      <path class="dg-line dg-accline" d="M530,131 L582,131" marker-end="url(#aha)"/>
+      <rect class="dg-box" x="586" y="96" width="124" height="70" rx="6"/>
+      <text class="dg-t" x="648" y="126" text-anchor="middle" data-en="Alerts" data-es="Alertas">Alerts</text>
+      <text class="dg-m" x="648" y="146" text-anchor="middle" data-en="with pod context" data-es="con datos del pod">with pod context</text>
+    </svg>
+    </div>
+    <figcaption data-en="Falco runs inside the cluster, but its probe sits in the kernel every container shares. That is why it sees the workload, and also everything else on the machine."
+                data-es="Falco corre dentro del clúster, pero su sonda está en el kernel que comparten todos los contenedores. Por eso ve la carga de trabajo y también todo lo demás que corre en la máquina.">
+      Falco runs inside the cluster, but its probe sits in the kernel every container shares. That is why it sees the workload, and also everything else on the machine.</figcaption>
+  </figure>
+
+  <h2 data-en="The workflow: from a business sentence to a rule" data-es="El flujo: de una frase de negocio a una regla">The workflow: from a business sentence to a rule</h2>
+  <p data-en="Every rule should trace back to a reason. Here is the chain, followed through one example: protecting a public website from defacement."
+     data-es="Cada regla debería poder rastrearse hasta una razón. Esta es la cadena, seguida a través de un ejemplo: proteger un sitio web público contra alteraciones (defacement).">
+    Every rule should trace back to a reason. Here is the chain, followed through one example: protecting a public website from defacement.</p>
+  <ol class="flow">
+    <li data-en="<strong>Business risk</strong> <span class='what'>· what could hurt us</span><span class='ex'>“Customers must never see unauthorized content on our website.”</span>"
+        data-es="<strong>Riesgo de negocio</strong> <span class='what'>· qué nos podría dañar</span><span class='ex'>“Los clientes nunca deben ver contenido no autorizado en nuestro sitio web.”</span>">
+      <strong>Business risk</strong> <span class="what">· what could hurt us</span><span class="ex">“Customers must never see unauthorized content on our website.”</span></li>
+    <li data-en="<strong>Policy</strong> <span class='what'>· what we commit to</span><span class='ex'>Production web content changes only through the release pipeline.</span>"
+        data-es="<strong>Política</strong> <span class='what'>· a qué nos comprometemos</span><span class='ex'>El contenido web de producción solo cambia a través del pipeline de publicación.</span>">
+      <strong>Policy</strong> <span class="what">· what we commit to</span><span class="ex">Production web content changes only through the release pipeline.</span></li>
+    <li data-en="<strong>Control</strong> <span class='what'>· how we'll know</span><span class='ex'>Detect any write to web content inside a running production container.</span>"
+        data-es="<strong>Control</strong> <span class='what'>· cómo nos daremos cuenta</span><span class='ex'>Detectar cualquier escritura de contenido web dentro de un contenedor de producción en ejecución.</span>">
+      <strong>Control</strong> <span class="what">· how we'll know</span><span class="ex">Detect any write to web content inside a running production container.</span></li>
+    <li data-en="<strong>Detection spec</strong> <span class='what'>· precise, owned, testable</span><span class='ex'>Scope, condition in plain words, known legitimate activity, severity, owner, tests, review date.</span>"
+        data-es="<strong>Especificación de detección</strong> <span class='what'>· precisa, con dueño, verificable</span><span class='ex'>Alcance, condición en palabras simples, actividad legítima conocida, severidad, responsable, pruebas, fecha de revisión.</span>">
+      <strong>Detection spec</strong> <span class="what">· precise, owned, testable</span><span class="ex">Scope, condition in plain words, known legitimate activity, severity, owner, tests, review date.</span></li>
+    <li data-en="<strong>Rule</strong> <span class='what'>· YAML the engine runs</span><span class='ex'>A Falco rule built from the spec, field by field (excerpt below).</span>"
+        data-es="<strong>Regla</strong> <span class='what'>· YAML que ejecuta el motor</span><span class='ex'>Una regla de Falco construida desde la especificación, campo por campo (extracto abajo).</span>">
+      <strong>Rule</strong> <span class="what">· YAML the engine runs</span><span class="ex">A Falco rule built from the spec, field by field (excerpt below).</span></li>
+    <li data-en="<strong>Test</strong> <span class='what'>· prove it works, and that it's the rule doing the work</span><span class='ex'>Seed the event, check what must stay silent, check that the tool was watching.</span>"
+        data-es="<strong>Prueba</strong> <span class='what'>· demostrar que funciona, y que es la regla la que funciona</span><span class='ex'>Provocar el evento, verificar lo que debe quedar en silencio, verificar que la herramienta estaba observando.</span>">
+      <strong>Test</strong> <span class="what">· prove it works, and that it's the rule doing the work</span><span class="ex">Seed the event, check what must stay silent, check that the tool was watching.</span></li>
+    <li data-en="<strong>Operate</strong> <span class='what'>· route, triage, tune</span><span class='ex'>Alerts reach someone who can act; false alarms become named, owned exceptions.</span>"
+        data-es="<strong>Operación</strong> <span class='what'>· enrutar, clasificar, ajustar</span><span class='ex'>Las alertas llegan a alguien que puede actuar; las falsas alarmas se convierten en excepciones con nombre y responsable.</span>">
+      <strong>Operate</strong> <span class="what">· route, triage, tune</span><span class="ex">Alerts reach someone who can act; false alarms become named, owned exceptions.</span></li>
+  </ol>
+  <p class="loop" data-en="↺ And back to the spec: false positives, misses and changes in the business all reopen it. Detections decay quietly as the business changes."
+     data-es="↺ Y de vuelta a la especificación: los falsos positivos, las detecciones fallidas y los cambios en el negocio la reabren. Las detecciones se degradan en silencio a medida que el negocio cambia.">
+    ↺ And back to the spec: false positives, misses and changes in the business all reopen it. Detections decay quietly as the business changes.</p>
+
+  <h2 data-en="Questions to ask the business" data-es="Preguntas para el negocio">Questions to ask the business</h2>
+  <p data-en="Asked roughly in this order, because each answer narrows the next. The right-hand column is where the answer ends up, so no question is asked for its own sake."
+     data-es="Se plantean más o menos en este orden, porque cada respuesta acota la siguiente. La columna de la derecha indica dónde termina cada respuesta, así que ninguna pregunta se hace por hacerla.">
+    Asked roughly in this order, because each answer narrows the next. The right-hand column is where the answer ends up, so no question is asked for its own sake.</p>
+  <div class="table-wrap"><table>
+    <thead><tr>
+      <th data-en="Theme" data-es="Tema">Theme</th>
+      <th data-en="Ask" data-es="Pregunta">Ask</th>
+      <th data-en="Lands in the rule as" data-es="Termina en la regla como">Lands in the rule as</th>
+    </tr></thead>
+    <tbody>
+      <tr><td data-en="<strong>What are we protecting?</strong>" data-es="<strong>¿Qué estamos protegiendo?</strong>"><strong>What are we protecting?</strong></td>
+          <td data-en="Which applications would hurt most if tampered with, stopped or leaked?" data-es="¿Qué aplicaciones causarían más daño si se alteraran, se detuvieran o se filtraran?">Which applications would hurt most if tampered with, stopped or leaked?</td>
+          <td class="muted" data-en="Scope: which namespaces and images are watched" data-es="Alcance: qué espacios de nombres e imágenes se vigilan">Scope: which namespaces and images are watched</td></tr>
+      <tr><td data-en="<strong>What are we afraid of, or obliged to do?</strong>" data-es="<strong>¿Qué tememos, o a qué estamos obligados?</strong>"><strong>What are we afraid of, or obliged to do?</strong></td>
+          <td data-en="Which scenarios worry you, and which regulations, contracts or audit findings require monitoring?" data-es="¿Qué escenarios le preocupan, y qué regulaciones, contratos o hallazgos de auditoría exigen monitoreo?">Which scenarios worry you, and which regulations, contracts or audit findings require monitoring?</td>
+          <td class="muted" data-en="Which rules exist at all; threat-framework tags" data-es="Qué reglas existen; etiquetas de marcos de amenazas">Which rules exist at all; threat-framework tags</td></tr>
+      <tr><td data-en="<strong>What does normal look like?</strong>" data-es="<strong>¿Cómo se ve lo normal?</strong>"><strong>What does normal look like?</strong></td>
+          <td data-en="How do software and content reach production? Who may open a shell there, and how? Which agents and vendors run inside?" data-es="¿Cómo llegan el software y el contenido a producción? ¿Quién puede abrir una terminal ahí, y cómo? ¿Qué agentes y proveedores corren dentro?">How do software and content reach production? Who may open a shell there, and how? Which agents and vendors run inside?</td>
+          <td class="muted" data-en="Exceptions, the biggest source of false alarms when left unasked" data-es="Excepciones: la mayor fuente de falsas alarmas cuando no se pregunta">Exceptions, the biggest source of false alarms when left unasked</td></tr>
+      <tr><td data-en="<strong>When it fires, then what?</strong>" data-es="<strong>Cuando se dispara, ¿qué sigue?</strong>"><strong>When it fires, then what?</strong></td>
+          <td data-en="Who is alerted, how fast must they act, and what do they need in the alert to act without digging?" data-es="¿A quién se alerta, qué tan rápido debe actuar y qué necesita en la alerta para actuar sin investigar de más?">Who is alerted, how fast must they act, and what do they need in the alert to act without digging?</td>
+          <td class="muted" data-en="Priority, routing and the alert's output fields" data-es="Prioridad, enrutamiento y los campos de salida de la alerta">Priority, routing and the alert's output fields</td></tr>
+      <tr><td data-en="<strong>How wrong can we afford to be?</strong>" data-es="<strong>¿Cuánto error podemos permitirnos?</strong>"><strong>How wrong can we afford to be?</strong></td>
+          <td data-en="Which is worse here: a missed attack, or a channel so noisy that people stop reading it?" data-es="¿Qué es peor aquí: un ataque que pasa inadvertido, o un canal tan ruidoso que la gente deja de leerlo?">Which is worse here: a missed attack, or a channel so noisy that people stop reading it?</td>
+          <td class="muted" data-en="How broad the condition is; staged rollout" data-es="Qué tan amplia es la condición; despliegue gradual">How broad the condition is; staged rollout</td></tr>
+      <tr><td data-en="<strong>Who owns what?</strong>" data-es="<strong>¿Quién es responsable de qué?</strong>"><strong>Who owns what?</strong></td>
+          <td data-en="Who owns each rule, who may grant an exception and for how long, and who may switch a rule off?" data-es="¿Quién es responsable de cada regla, quién puede otorgar una excepción y por cuánto tiempo, y quién puede desactivar una regla?">Who owns each rule, who may grant an exception and for how long, and who may switch a rule off?</td>
+          <td class="muted" data-en="Owner, exception register with expiry dates, separation of duties" data-es="Responsable, registro de excepciones con fecha de vencimiento, separación de funciones">Owner, exception register with expiry dates, separation of duties</td></tr>
+      <tr><td data-en="<strong>What must be kept?</strong>" data-es="<strong>¿Qué hay que conservar?</strong>"><strong>What must be kept?</strong></td>
+          <td data-en="How long must alerts be retained, who may read them, and must they stand as audit evidence?" data-es="¿Cuánto tiempo deben conservarse las alertas, quién puede leerlas y deben servir como evidencia de auditoría?">How long must alerts be retained, who may read them, and must they stand as audit evidence?</td>
+          <td class="muted" data-en="Forwarding destination and retention" data-es="Destino de reenvío y retención">Forwarding destination and retention</td></tr>
+      <tr><td data-en="<strong>Is this the right tool?</strong>" data-es="<strong>¿Es esta la herramienta correcta?</strong>"><strong>Is this the right tool?</strong></td>
+          <td data-en="Should this be prevented rather than detected? Do we need to know which person did it?" data-es="¿Debería prevenirse en lugar de detectarse? ¿Necesitamos saber qué persona lo hizo?">Should this be prevented rather than detected? Do we need to know which person did it?</td>
+          <td class="muted" data-en="Possibly no rule at all; identity comes from the platform's audit log, not from system calls" data-es="Quizá ninguna regla; la identidad viene del registro de auditoría de la plataforma, no de las llamadas al sistema">Possibly no rule at all; identity comes from the platform's audit log, not from system calls</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 data-en="How the answers become a rule" data-es="Cómo las respuestas se convierten en una regla">How the answers become a rule</h2>
+  <p data-en="The defacement example, written as a production-ready Falco rule. Each part maps to an answer above: the namespace list is the <strong>scope</strong>, the exception is <strong>what normal looks like</strong> (the release pipeline may write content), the priority is <strong>how fast someone must act</strong>, and the tags tie it to the <strong>policy and the threat</strong> (MITRE ATT&amp;CK T1491, Defacement)."
+     data-es="El ejemplo de defacement, escrito como una regla de Falco lista para producción. Cada parte corresponde a una respuesta de arriba: la lista de espacios de nombres es el <strong>alcance</strong>, la excepción es <strong>cómo se ve lo normal</strong> (el pipeline de publicación sí puede escribir contenido), la prioridad es <strong>qué tan rápido debe actuar alguien</strong>, y las etiquetas la vinculan con la <strong>política y la amenaza</strong> (MITRE ATT&amp;CK T1491, Defacement).">
+    The defacement example, written as a production-ready Falco rule. Each part maps to an answer above: the namespace list is the <strong>scope</strong>, the exception is <strong>what normal looks like</strong> (the release pipeline may write content), the priority is <strong>how fast someone must act</strong>, and the tags tie it to the <strong>policy and the threat</strong> (MITRE ATT&amp;CK T1491, Defacement).</p>
+<pre><code>- rule: Web content modified at runtime in production
+  condition: &gt;
+    open_write and container
+    and k8s.ns.name in (prod_web_namespaces)
+    and fd.name startswith /usr/share/nginx/html/
+  exceptions:
+    - name: release_pipeline     <span class="c"># named, owned, with a review date</span>
+      fields: [container.image.repository, proc.name]
+      comps: [=, =]
+      values:
+        - [registry.example.com/web/content-sync, rsync]
+  priority: ERROR
+  tags: [web, filesystem, mitre_impact, T1491, policy_WEB-01]</code></pre>
+  <p data-en="Excerpt; names are placeholders. The full rule loads cleanly in Falco 0.45, and a deliberately broken copy is rejected, which shows the validation check itself works. Owner, response, routing and retention don't live in the rule: they live in the spec beside it, and in the platform that receives the alerts."
+     data-es="Extracto; los nombres son ilustrativos. La regla completa carga sin errores en Falco 0.45, y una copia rota a propósito es rechazada, lo que demuestra que la propia validación funciona. El responsable, la respuesta, el enrutamiento y la retención no viven en la regla: viven en la especificación que la acompaña y en la plataforma que recibe las alertas.">
+    Excerpt; names are placeholders. The full rule loads cleanly in Falco 0.45, and a deliberately broken copy is rejected, which shows the validation check itself works. Owner, response, routing and retention don't live in the rule: they live in the spec beside it, and in the platform that receives the alerts.</p>
+
+  <h2 data-en="Severity is a business decision" data-es="La severidad es una decisión de negocio">Severity is a business decision</h2>
+  <p data-en="Falco's own guideline grades the <em>behavior</em>: writing state is ERROR, an unauthorized read is WARNING, unexpected behavior is NOTICE. A business needs to grade <em>impact and confidence</em>, then map that to a response. Writing the grid down once stops priority from becoming each author's mood."
+     data-es="La guía de Falco califica el <em>comportamiento</em>: escribir estado es ERROR, una lectura no autorizada es WARNING, un comportamiento inesperado es NOTICE. Un negocio necesita calificar el <em>impacto y la confianza</em>, y luego traducir eso en una respuesta. Escribir la tabla una sola vez evita que la prioridad dependa del ánimo de cada autor.">
+    Falco's own guideline grades the <em>behavior</em>: writing state is ERROR, an unauthorized read is WARNING, unexpected behavior is NOTICE. A business needs to grade <em>impact and confidence</em>, then map that to a response. Writing the grid down once stops priority from becoming each author's mood.</p>
+  <div class="table-wrap"><table>
+    <thead><tr>
+      <th></th>
+      <th data-en="Clearly malicious" data-es="Claramente malicioso">Clearly malicious</th>
+      <th data-en="Needs investigation" data-es="Requiere investigación">Needs investigation</th>
+    </tr></thead>
+    <tbody>
+      <tr><td data-en="<strong>Crown-jewel system</strong>" data-es="<strong>Sistema crítico</strong>"><strong>Crown-jewel system</strong></td>
+          <td data-en="CRITICAL · page someone now" data-es="CRITICAL · avisar a alguien ya">CRITICAL · page someone now</td>
+          <td data-en="ERROR · triage the same day" data-es="ERROR · revisar el mismo día">ERROR · triage the same day</td></tr>
+      <tr><td data-en="<strong>Ordinary system</strong>" data-es="<strong>Sistema ordinario</strong>"><strong>Ordinary system</strong></td>
+          <td data-en="ERROR · triage the same day" data-es="ERROR · revisar el mismo día">ERROR · triage the same day</td>
+          <td data-en="WARNING / NOTICE · review queue" data-es="WARNING / NOTICE · cola de revisión">WARNING / NOTICE · review queue</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 data-en="Proving the rule is real" data-es="Demostrar que la regla funciona">Proving the rule is real</h2>
+  <p data-en="A rule that fires once has only been shown to fire. The test ran the same three actions twice, once with the rule enabled and once with it switched off, changing nothing else."
+     data-es="Una regla que se dispara una vez solo demuestra que puede dispararse. La prueba ejecutó las mismas tres acciones dos veces, una con la regla activa y otra con la regla desactivada, sin cambiar nada más.">
+    A rule that fires once has only been shown to fire. The test ran the same three actions twice, once with the rule enabled and once with it switched off, changing nothing else.</p>
+  <div class="table-wrap"><table>
+    <thead><tr>
+      <th data-en="Action" data-es="Acción">Action</th>
+      <th data-en="Why" data-es="Por qué">Why</th>
+      <th data-en="Rule on" data-es="Regla activa">Rule on</th>
+      <th data-en="Rule off" data-es="Regla inactiva">Rule off</th>
+    </tr></thead>
+    <tbody>
+      <tr><td data-en="Write a page into the web folder" data-es="Escribir una página en la carpeta web">Write a page into the web folder</td>
+          <td class="muted" data-en="The event the rule targets" data-es="El evento que busca la regla">The event the rule targets</td>
+          <td data-en="fires ✓" data-es="se dispara ✓">fires ✓</td><td data-en="silent ✓" data-es="en silencio ✓">silent ✓</td></tr>
+      <tr><td data-en="Write a file somewhere else" data-es="Escribir un archivo en otro lugar">Write a file somewhere else</td>
+          <td class="muted" data-en="The rule must not fire on just any write" data-es="La regla no debe dispararse con cualquier escritura">The rule must not fire on just any write</td>
+          <td data-en="silent ✓" data-es="en silencio ✓">silent ✓</td><td data-en="silent ✓" data-es="en silencio ✓">silent ✓</td></tr>
+      <tr><td data-en="Read the password-hash file" data-es="Leer el archivo de hashes de contraseñas">Read the password-hash file</td>
+          <td class="muted" data-en="A built-in rule must fire, proving Falco was watching" data-es="Una regla incluida debe dispararse, lo que demuestra que Falco estaba observando">A built-in rule must fire, proving Falco was watching</td>
+          <td data-en="fires ✓" data-es="se dispara ✓">fires ✓</td><td data-en="fires ✓" data-es="se dispara ✓">fires ✓</td></tr>
+    </tbody>
+  </table></div>
+  <p data-en="The third row is the one that matters. Without it, the silence in the second run would look exactly like a security tool that had stopped watching."
+     data-es="La tercera fila es la que importa. Sin ella, el silencio de la segunda ejecución se vería exactamente igual que una herramienta de seguridad que dejó de observar.">
+    The third row is the one that matters. Without it, the silence in the second run would look exactly like a security tool that had stopped watching.</p>
+
+  <h2 data-en="What the lab surfaced" data-es="Lo que reveló el laboratorio">What the lab surfaced</h2>
+  <ul>
+    <li data-en="<strong>The loudest alerts came from the platform itself.</strong> Routine pod creation produced 15 <em>Critical</em> alerts. The cause, confirmed in the alert data: Kubernetes' node agent mounting storage for new pods. “Normal” has to include the platform, not just the application, and a Critical label is the rule's opinion of the behavior, not a measure of real danger."
+        data-es="<strong>Las alertas más ruidosas vinieron de la propia plataforma.</strong> La creación rutinaria de pods produjo 15 alertas <em>Critical</em>. La causa, confirmada en los datos de las alertas: el agente de nodo de Kubernetes montando almacenamiento para los nuevos pods. Lo “normal” debe incluir a la plataforma, no solo a la aplicación, y una etiqueta Critical es la opinión de la regla sobre el comportamiento, no una medida del peligro real.">
+      <strong>The loudest alerts came from the platform itself.</strong> Routine pod creation produced 15 <em>Critical</em> alerts. The cause, confirmed in the alert data: Kubernetes' node agent mounting storage for new pods. “Normal” has to include the platform, not just the application, and a Critical label is the rule's opinion of the behavior, not a measure of real danger.</li>
+    <li data-en="<strong>Detecting is not the same as attributing.</strong> Falco caught activity in a container outside the cluster but couldn't name it, and every alert reports the container's own user rather than the person who ran the command. Who did it comes from Kubernetes' audit log. If the business needs accountability, the design has to include both."
+        data-es="<strong>Detectar no es lo mismo que atribuir.</strong> Falco captó actividad en un contenedor fuera del clúster pero no pudo identificarlo, y cada alerta reporta el usuario del propio contenedor, no la persona que ejecutó el comando. Quién lo hizo sale del registro de auditoría de Kubernetes. Si el negocio necesita rendición de cuentas, el diseño debe incluir ambas cosas.">
+      <strong>Detecting is not the same as attributing.</strong> Falco caught activity in a container outside the cluster but couldn't name it, and every alert reports the container's own user rather than the person who ran the command. Who did it comes from Kubernetes' audit log. If the business needs accountability, the design has to include both.</li>
+    <li data-en="<strong>Whoever can edit the rules can switch off the alarm.</strong> One changed line silenced the custom rule in the test. Who may change or disable a rule is a control in its own right."
+        data-es="<strong>Quien puede editar las reglas puede apagar la alarma.</strong> Una sola línea modificada silenció la regla personalizada en la prueba. Quién puede cambiar o desactivar una regla es un control en sí mismo.">
+      <strong>Whoever can edit the rules can switch off the alarm.</strong> One changed line silenced the custom rule in the test. Who may change or disable a rule is a control in its own right.</li>
+    <li data-en="<strong>Testing didn't catch the design mistakes; a review did.</strong> The first version of the custom rule passed every test, yet used the wrong priority for its kind of event and fired in every environment. Only comparing it against a written standard showed that."
+        data-es="<strong>Las pruebas no detectaron los errores de diseño; una revisión sí.</strong> La primera versión de la regla personalizada pasó todas las pruebas, pero usaba la prioridad equivocada para su tipo de evento y se disparaba en todos los entornos. Solo compararla con un estándar escrito lo puso en evidencia.">
+      <strong>Testing didn't catch the design mistakes; a review did.</strong> The first version of the custom rule passed every test, yet used the wrong priority for its kind of event and fired in every environment. Only comparing it against a written standard showed that.</li>
+  </ul>
+
+  <h2 data-en="How it was built" data-es="Cómo se construyó">How it was built</h2>
+  <p data-en="A single-node Kubernetes cluster (kind) and Falco 0.45, installed with Helm and using its built-in eBPF probe, on a Linux machine that also runs other services. It needed no administrator rights and left those services untouched. Every step is a script, every tool download was checksum-verified, and the whole lab tears down and rebuilds in <strong>under five minutes</strong>."
+     data-es="Un clúster de Kubernetes de un solo nodo (kind) y Falco 0.45, instalado con Helm y usando su sonda eBPF integrada, en una máquina Linux que también ejecuta otros servicios. No necesitó permisos de administrador y dejó esos servicios intactos. Cada paso es un script, cada descarga de herramientas se verificó con su checksum, y el laboratorio completo se desmonta y se reconstruye en <strong>menos de cinco minutos</strong>.">
+    A single-node Kubernetes cluster (kind) and Falco 0.45, installed with Helm and using its built-in eBPF probe, on a Linux machine that also runs other services. It needed no administrator rights and left those services untouched. Every step is a script, every tool download was checksum-verified, and the whole lab tears down and rebuilds in <strong>under five minutes</strong>.</p>
+  <p data-en="It was built with an AI coding agent. Every install command came from documentation fetched during the run, never from the model's memory. The record lists <strong>seven places where the agent's output needed correcting</strong>. Three of its failures were silent, with no error, just missing output, and each was caught the same way: by checking for output that should have been there."
+     data-es="Se construyó con un agente de programación de IA. Cada comando de instalación salió de documentación consultada durante la ejecución, nunca de la memoria del modelo. El registro enumera <strong>siete puntos en los que hubo que corregir el trabajo del agente</strong>. Tres de sus fallas fueron silenciosas, sin ningún error, solo resultados ausentes, y todas se detectaron de la misma manera: buscando resultados que deberían haber aparecido.">
+    It was built with an AI coding agent. Every install command came from documentation fetched during the run, never from the model's memory. The record lists <strong>seven places where the agent's output needed correcting</strong>. Three of its failures were silent, with no error, just missing output, and each was caught the same way: by checking for output that should have been there.</p>
+
+  <div class="callout">
+    <span class="mark" aria-hidden="true">!</span>
+    <p data-en="<strong>A write-up, not a repository.</strong> The lab ran on personal infrastructure, so its scripts and working records stay private. This page summarizes the approach and what the lab showed."
+       data-es="<strong>Una reseña, no un repositorio.</strong> El laboratorio corrió en infraestructura personal, así que sus scripts y registros de trabajo son privados. Esta página resume el enfoque y lo que demostró el laboratorio.">
+      <strong>A write-up, not a repository.</strong> The lab ran on personal infrastructure, so its scripts and working records stay private. This page summarizes the approach and what the lab showed.</p>
+  </div>
+
+  <a class="back" href="../" data-en="← All projects" data-es="← Todos los proyectos">← All projects</a>
+
+</article>
+</main>
+
+<script src="../assets/page.js?v=2"></script>
+</body>
+</html>

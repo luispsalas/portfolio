@@ -36,6 +36,13 @@ const PROJECTS = {
       href: "https://github.com/luispsalas/governed-data-platform"
     },
     {
+      title: "Governed Runtime Detection", kind: "detect",
+      en: "Deciding what a runtime security tool should alert on, and proving it does: business questions, rules and a hands-on Falco lab on Kubernetes. Shared as a write-up.",
+      es: "Decidir sobre qué debe alertar una herramienta de seguridad en tiempo de ejecución, y demostrar que lo hace: preguntas de negocio, reglas y un laboratorio práctico con Falco sobre Kubernetes. Compartido como reseña.",
+      tags: ["Falco", "Kubernetes", "Detection design"], status: "private",
+      href: "runtime-detection/"
+    },
+    {
       title: "AI Governance Scorecard", kind: "bars",
       en: "An interactive reference covering 42 AI metrics across 11 lifecycle layers — what to measure, how, and when.",
       es: "Referencia interactiva con 42 métricas de IA en 11 capas del ciclo de vida — qué medir, cómo y cuándo.",
@@ -143,6 +150,24 @@ const MOTIF = {
       box(238,48,56,LINE) + box(238,106,56,LINE) +
       path("M92,61 C114,61 112,90 132,90", LINE) + path("M92,119 C114,119 112,90 132,90", LINE) +
       path("M198,90 C220,90 218,61 238,61", "currentColor") + path("M198,90 C220,90 218,119 238,119", "currentColor");
+  },
+
+  /* system calls flowing through a rule; the rule raises an alert */
+  detect: () => {
+    const step = 36, dur = 1.2;
+    const dots = Array.from({length: 8}, (_, i) => {
+      const x = 30 + i*step;
+      const fade = i === 0 ? anim("opacity", "0;1", dur) : i === 7 ? anim("opacity", "1;0", dur) : "";
+      return `<circle cx="${x}" cy="104" r="5" fill="${LINE}"${i === 0 ? ' opacity="0"' : ""}>` +
+        anim("cx", `${x};${x+step}`, dur) + fade + `</circle>`;
+    }).join("");
+    return `<line x1="30" y1="104" x2="290" y2="104" stroke="${LINE}" stroke-width="3"/>` + dots +
+      `<rect x="150" y="70" width="20" height="68" rx="5" fill="none" stroke="currentColor" stroke-width="2.5"/>
+       <line x1="160" y1="70" x2="160" y2="52" stroke="currentColor" stroke-width="2.5"/>
+       <circle cx="160" cy="44" r="7" fill="currentColor"/>
+       <circle cx="160" cy="44" r="7" fill="none" stroke="currentColor" stroke-width="2" opacity=".7">` +
+        anim("r", "7;20", 2.4) + anim("opacity", ".7;0", 2.4) + `</circle>` +
+      [0,1].map(i => `<rect x="${184}" y="${38+i*14}" width="${76-i*28}" height="7" rx="3.5" fill="${LINE}"/>`).join("");
   },
 
   /* metrics rising and falling */
