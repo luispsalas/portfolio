@@ -121,6 +121,14 @@ a:hover { text-decoration: underline; }
   font: inherit; font-size: var(--t-sm); padding: var(--s1) var(--s3); cursor: pointer;
 }
 .seg button + button { border-left: 1px solid var(--border); }
+.seg button { display: inline-flex; align-items: center; gap: var(--s1); }
+.seg .ic { width: 14px; height: 14px; flex: none; }
+/* On phones the theme control shows its icons only, so both controls fit on one line.
+   The words stay in the accessibility tree (visually hidden, not display: none). */
+@media (max-width: 480px) {
+  #theme span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  #theme button { padding-inline: var(--s2); }
+}
 .seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
 
 .icon-btn {

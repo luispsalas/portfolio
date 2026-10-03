@@ -38,16 +38,18 @@ document.getElementById("lang").addEventListener("click", e => {
 /* Light / dark switch. Dark is the default; a visitor's choice is remembered. */
 const themeBtn = document.getElementById("theme");
 
-function isDark() {
-  return root.getAttribute("data-theme") !== "light";
-}
+/* Both choices are always visible, like the EN / ES control: the pressed one
+   is the theme you are looking at. */
 function paintThemeBtn() {
-  themeBtn.textContent = isDark() ? "☀" : "☾";
-  themeBtn.setAttribute("aria-label", isDark() ? "Switch to light theme" : "Switch to dark theme");
+  const current = root.getAttribute("data-theme") === "light" ? "light" : "dark";
+  themeBtn.querySelectorAll("button")
+    .forEach(b => b.setAttribute("aria-pressed", String(b.dataset.themeChoice === current)));
 }
 
-themeBtn.addEventListener("click", () => {
-  const next = isDark() ? "light" : "dark";
+themeBtn.addEventListener("click", e => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  const next = btn.dataset.themeChoice;
   root.setAttribute("data-theme", next);
   try { localStorage.setItem("theme", next); } catch (e) { /* ignore */ }
   paintThemeBtn();

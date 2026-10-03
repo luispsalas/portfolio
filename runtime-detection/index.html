@@ -13,7 +13,10 @@
 <div class="topbar">
   <div class="wrap row">
     <span class="who"><a href="../" data-en="← Luis P. Salas" data-es="← Luis P. Salas">← Luis P. Salas</a></span>
-    <button class="icon-btn" id="theme" aria-label="Switch theme">☾</button>
+    <div class="seg" id="theme" role="group" aria-label="Theme">
+      <button data-theme-choice="light" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-en="Light" data-es="Claro">Light</span></button>
+      <button data-theme-choice="dark" aria-pressed="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span data-en="Dark" data-es="Oscuro">Dark</span></button>
+    </div>
     <div class="seg" id="lang" role="group" aria-label="Language">
       <button data-lang="en" aria-pressed="true">EN</button>
       <button data-lang="es" aria-pressed="false">ES</button>

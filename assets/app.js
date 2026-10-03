@@ -127,13 +127,23 @@ const MOTIF = {
         anim("width", `${w};${Math.round(w*.6)};${w}`, 4, `begin="${i*.35}s" ${ease(3)}`) + `</rect>`;
     }).join(""),
 
-  /* a marker moving along the incidents */
-  timeline: () =>
-    `<line x1="34" y1="112" x2="286" y2="112" stroke="${LINE}" stroke-width="3"/>` +
-    [0,1,2,3,4].map(i => `<circle cx="${44+i*52}" cy="112" r="5" fill="${LINE}"/>`).join("") +
-    `<circle cx="148" cy="112" r="10" fill="currentColor">` +
-      anim("cx", "148;200;252;252;44;96;148", 9, `keyTimes="0;.18;.36;.54;.64;.82;1"`) + `</circle>` +
-    [0,1].map(i => `<rect x="34" y="${52+i*18}" width="${180-i*60}" height="7" rx="3.5" fill="${LINE}"/>`).join(""),
+  /* the casebook's story: the marker rests at the incident; while playing it
+     derails there (leaves the track along a dashed curve and fades), then
+     comes back along the track from the start, so each loop ends at rest.
+     Same shape as the casebook banner: events, an incident, a dashed stretch. */
+  timeline: () => {
+    const kt = `keyTimes="0;.08;.16;.24;.32;.45;.5;.6;.8;1"`;
+    return `<line x1="34" y1="112" x2="286" y2="112" stroke="${LINE}" stroke-width="3"/>` +
+      [0,1,2,3,4].map(i => `<circle cx="${44+i*52}" cy="112" r="5" fill="${LINE}"/>`).join("") +
+      `<path d="M148,112 C175,114 196,132 214,160" fill="none" stroke="currentColor" stroke-width="2.5"
+         stroke-dasharray="5 5" stroke-linecap="round" opacity="0">` +
+        anim("opacity", "0;1;1;0;0", 7, `keyTimes="0;.1;.4;.55;1"`) + `</path>` +
+      `<circle cx="148" cy="112" r="10" fill="currentColor">` +
+        anim("cx", "148;170;190;206;214;214;44;44;96;148", 7, kt) +
+        anim("cy", "112;118;130;146;160;160;112;112;112;112", 7, kt) +
+        anim("opacity", "1;1;0;0;1;1", 7, `keyTimes="0;.32;.45;.52;.6;1"`) + `</circle>` +
+      [0,1].map(i => `<rect x="34" y="${52+i*18}" width="${180-i*60}" height="7" rx="3.5" fill="${LINE}"/>`).join("");
+  },
 
   /* lineage: several sources, one governed table, several consumers; data flows through */
   lineage: () => {
@@ -339,12 +349,12 @@ document.getElementById("lang").addEventListener("click", () => {
 const root = document.documentElement;
 const themeBtn = document.getElementById("theme");
 
-function isDark() {
-  return root.getAttribute("data-theme") !== "light";
-}
+/* Both choices are always visible, like the EN / ES control: the pressed one
+   is the theme you are looking at. */
 function paintThemeBtn() {
-  themeBtn.textContent = isDark() ? "☀" : "☾";
-  themeBtn.setAttribute("aria-label", isDark() ? "Switch to light theme" : "Switch to dark theme");
+  const current = root.getAttribute("data-theme") === "light" ? "light" : "dark";
+  themeBtn.querySelectorAll("button")
+    .forEach(b => b.setAttribute("aria-pressed", String(b.dataset.themeChoice === current)));
 }
 try {
   const saved = localStorage.getItem("theme");
@@ -353,8 +363,10 @@ try {
   root.setAttribute("data-theme", "dark");
 }
 
-themeBtn.addEventListener("click", () => {
-  const next = isDark() ? "light" : "dark";
+themeBtn.addEventListener("click", e => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  const next = btn.dataset.themeChoice;
   root.setAttribute("data-theme", next);
   try { localStorage.setItem("theme", next); } catch (e) { /* ignore */ }
   paintThemeBtn();
