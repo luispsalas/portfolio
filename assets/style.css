@@ -390,3 +390,10 @@ button.btn { font: inherit; font-size: var(--t-base); font-weight: 600; cursor: 
     text-transform: uppercase; color: var(--fg-subtle);
   }
 }
+
+/* AISCE page: the framing motion (assets/aisce-frame.js). Plays on hover. */
+.frame-motion {
+  margin: 0 0 var(--s5); max-width: 360px;
+  background: var(--bg-subtle); border: 1px solid var(--border-muted); border-radius: var(--radius);
+}
+.frame-motion svg { display: block; width: 100%; height: auto; }
