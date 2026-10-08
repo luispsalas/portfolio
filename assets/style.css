@@ -405,3 +405,12 @@ button.btn { font: inherit; font-size: var(--t-base); font-weight: 600; cursor: 
   border: 1px solid var(--border-muted); border-radius: var(--radius);
 }
 .doc figure.shot a:hover img { border-color: var(--accent); }
+
+/* Write-ups: a focused panel for what a project delivered. */
+.doc .deliverables {
+  margin: 0 0 var(--s5); padding: var(--s4) var(--s5);
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-subtle);
+}
+.doc .deliverables h3 { margin: 0 0 var(--s2); font-size: var(--t-md); font-weight: 700; }
+.doc .deliverables ul { margin: 0; }
+.doc .deliverables li:last-child { margin-bottom: 0; padding-top: var(--s2); border-top: 1px solid var(--border-muted); }

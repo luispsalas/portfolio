@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%230969da'/></svg>">
 <link rel="preload" href="../assets/fonts/IBMPlexSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/style.css?v=3">
+<link rel="stylesheet" href="../assets/style.css?v=4">
 </head>
 <body>
 
@@ -190,9 +190,23 @@
   <p data-en="Built in <strong>n8n</strong> (self-hosted, Community edition), with <strong>Claude Haiku</strong> for classification and a few short JavaScript steps for the gate and the checks. Each was tested outside the platform before being pasted in. The build was <strong>AI-assisted</strong>: an AI coding agent wrote the scripts and the step-by-step instructions, and I built and tested in the editor. The agent's own errors (13 of them, from an install that broke a tool to an approval assumption a test disproved) are recorded, with how each was caught. Most were caught by checking what the system had actually <strong>stored</strong>, not what the screen showed."
      data-es="Construido en <strong>n8n</strong> (autoalojado, edición Community), con <strong>Claude Haiku</strong> para la clasificación y unos pocos pasos cortos en JavaScript para el filtro y los controles. Cada uno se probó fuera de la plataforma antes de pegarlo. La construcción fue <strong>asistida por IA</strong>: un agente de programación de IA escribió los scripts y las instrucciones paso a paso, y yo construí y probé en el editor. Los errores del propio agente (13, desde una instalación que rompió una herramienta hasta un supuesto sobre la aprobación que una prueba desmintió) quedaron registrados, junto con cómo se detectó cada uno. La mayoría se detectó revisando lo que el sistema realmente había <strong>guardado</strong>, no lo que mostraba la pantalla.">
     Built in <strong>n8n</strong> (self-hosted, Community edition), with <strong>Claude Haiku</strong> for classification and a few short JavaScript steps for the gate and the checks. Each was tested outside the platform before being pasted in. The build was <strong>AI-assisted</strong>: an AI coding agent wrote the scripts and the step-by-step instructions, and I built and tested in the editor. The agent's own errors (13 of them, from an install that broke a tool to an approval assumption a test disproved) are recorded, with how each was caught. Most were caught by checking what the system had actually <strong>stored</strong>, not what the screen showed.</p>
-  <p data-en="Deliverables: the workflow, a test record, builder notes, and an <strong>owner guide</strong> written for the business person who would live with it: what it does, what it doesn't, what to do when it fails, and how to test its accuracy from the business side."
-     data-es="Entregables: el flujo, un registro de pruebas, notas de construcción y una <strong>guía para quien lo administra</strong>, escrita para la persona del negocio que conviviría con él: qué hace, qué no hace, qué hacer cuando falla y cómo probar su precisión desde el lado del negocio.">
-    Deliverables: the workflow, a test record, builder notes, and an <strong>owner guide</strong> written for the business person who would live with it: what it does, what it doesn't, what to do when it fails, and how to test its accuracy from the business side.</p>
+  <section class="deliverables" aria-labelledby="deliverables-title">
+    <h3 id="deliverables-title" data-en="Deliverables" data-es="Entregables">Deliverables</h3>
+    <ul>
+      <li data-en="The workflow"
+          data-es="El flujo">
+        The workflow</li>
+      <li data-en="A test record"
+          data-es="Un registro de pruebas">
+        A test record</li>
+      <li data-en="Builder notes"
+          data-es="Notas de construcción">
+        Builder notes</li>
+      <li data-en="An <strong>owner guide</strong> written for the business person who would live with it: what it does, what it doesn't, what to do when it fails, and how to test its accuracy from the business side."
+          data-es="Una <strong>guía para quien lo administra</strong>, escrita para la persona del negocio que conviviría con él: qué hace, qué no hace, qué hacer cuando falla y cómo probar su precisión desde el lado del negocio.">
+        An <strong>owner guide</strong> written for the business person who would live with it: what it does, what it doesn't, what to do when it fails, and how to test its accuracy from the business side.</li>
+    </ul>
+  </section>
   <div class="callout">
     <span class="mark" aria-hidden="true">!</span>
     <p data-en="<strong>A write-up, not a repository.</strong> The workflow ran on one computer with synthetic data, and its files and working records stay private. This page summarizes the design and what the tests showed."
