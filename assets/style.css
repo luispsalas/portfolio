@@ -397,3 +397,11 @@ button.btn { font: inherit; font-size: var(--t-base); font-weight: 600; cursor: 
   background: var(--bg-subtle); border: 1px solid var(--border-muted); border-radius: var(--radius);
 }
 .frame-motion svg { display: block; width: 100%; height: auto; }
+
+/* Write-up screenshots: shown at column width, linked to the full-size file. */
+.doc figure.shot a { display: block; }
+.doc figure.shot img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--border-muted); border-radius: var(--radius);
+}
+.doc figure.shot a:hover img { border-color: var(--accent); }

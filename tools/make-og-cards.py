@@ -11,7 +11,7 @@ def meta(path):
     d=re.search(r'<meta name="description" content="([^"]*)',s).group(1)
     return html.unescape(t), html.unescape(d)
 pages=[("index.html","home","Projects"),("aisce/index.html","aisce",None),("local-kb/index.html","local-kb",None),
-       ("runtime-detection/index.html","runtime-detection",None),("cv/index.html","cv","Curriculum Vitae")]
+       ("runtime-detection/index.html","runtime-detection",None),("workflow-automation/index.html","workflow-automation",None),("cv/index.html","cv","Curriculum Vitae")]
 tpl='''<!DOCTYPE html><html><head><meta charset="utf-8"><style>
 @font-face{{font-family:Plex;src:url(data:font/woff2;base64,{f_reg})}}
 @font-face{{font-family:Plex;font-weight:700;src:url(data:font/woff2;base64,{f_bold})}}

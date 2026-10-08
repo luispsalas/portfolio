@@ -50,6 +50,13 @@ const PROJECTS = {
       href: "runtime-detection/"
     },
     {
+      title: "Governed Workflow Automation", kind: "gate",
+      en: "Adding AI to a business workflow without leaking personal data: a privacy gate, rule-based approval and tested failure paths, built in n8n.",
+      es: "Agregar IA a un flujo de trabajo empresarial sin filtrar datos personales: un filtro de privacidad, aprobación basada en reglas y rutas de error probadas, construido en n8n.",
+      tags: ["n8n", "Privacy", "Automation"], status: "private",
+      href: "workflow-automation/"
+    },
+    {
       title: "AI Governance Scorecard", kind: "bars",
       en: "An interactive reference covering 42 AI metrics across 11 lifecycle layers: what to measure, how, and when.",
       es: "Referencia interactiva con 42 métricas de IA en 11 capas del ciclo de vida: qué medir, cómo y cuándo.",
@@ -178,6 +185,30 @@ const MOTIF = {
        <circle cx="160" cy="44" r="7" fill="none" stroke="currentColor" stroke-width="2" opacity=".7">` +
         anim("r", "7;20", 2.4) + anim("opacity", ".7;0", 2.4) + `</circle>` +
       [0,1].map(i => `<rect x="${184}" y="${38+i*14}" width="${76-i*28}" height="7" rx="3.5" fill="${LINE}"/>`).join("");
+  },
+
+  /* requests stream through a fixed-rule gate; the one carrying personal data
+     (the ring) is turned aside to human review instead. Rests in the review box. */
+  gate: () => {
+    const step = 36, dur = 1.2;
+    const dots = Array.from({length: 9}, (_, i) => {
+      const x = 16 + i*step;
+      const fade = i === 0 ? anim("opacity", "0;1", dur) : i === 8 ? anim("opacity", "1;0", dur) : "";
+      return `<circle cx="${x}" cy="76" r="5" fill="${LINE}"${i === 0 ? ' opacity="0"' : ""}>` +
+        anim("cx", `${x};${x+step}`, dur) + fade + `</circle>`;
+    }).join("");
+    const kt = `keyTimes="0;.12;.14;.2;.62;.72;1"`;
+    return `<line x1="10" y1="76" x2="310" y2="76" stroke="${LINE}" stroke-width="3"/>` +
+      `<path d="M128,76 C128,96 128,104 128,118" fill="none" stroke="${LINE}" stroke-width="2.5" stroke-dasharray="4 4"/>` +
+      `<rect x="108" y="118" width="40" height="30" rx="7" fill="none" stroke="${LINE}" stroke-width="2.5"/>` +
+      dots +
+      `<rect x="154" y="46" width="12" height="60" rx="4" fill="currentColor"/>` +
+      `<circle cx="128" cy="133" r="6" fill="none" stroke="currentColor" stroke-width="2.5">` +
+        anim("cx", "128;128;16;16;118;128;128", 5.4, kt) +
+        anim("cy", "133;133;76;76;76;96;133", 5.4, kt) +
+        anim("opacity", "1;0;0;1;1;1;1", 5.4, kt) + `</circle>` +
+      `<rect x="184" y="118" width="96" height="7" rx="3.5" fill="${LINE}"/>` +
+      `<rect x="184" y="132" width="60" height="7" rx="3.5" fill="${LINE}"/>`;
   },
 
   /* metrics rising and falling */
