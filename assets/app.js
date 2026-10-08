@@ -22,13 +22,6 @@ const PROJECTS = {
       href: "https://luispsalas.github.io/applied-ai-concepts/"
     },
     {
-      title: "Autonomous AI Casebook", kind: "timeline",
-      en: "Reconstructions of incidents where an AI system's autonomy was central to real harm, built from primary sources.",
-      es: "Reconstrucciones de incidentes donde la autonomía de un sistema de IA fue central al daño, basadas en fuentes primarias.",
-      tags: ["Casebook", "Primary sources"], status: "live",
-      href: "https://github.com/luispsalas/autonomous-ai-casebook"
-    },
-    {
       title: "Governed Data Platform", kind: "lineage",
       en: "A Databricks Unity Catalog lakehouse where the platform decides who sees what. Tag-driven column masks and row filters are applied to one copy of synthetic customer data, and each control was checked by signing in as every role.",
       es: "Un lakehouse en Databricks Unity Catalog donde la plataforma decide quién ve qué. Máscaras de columna y filtros de fila basados en etiquetas se aplican sobre una sola copia de datos sintéticos de clientes, y cada control se verificó iniciando sesión con cada rol.",
@@ -62,6 +55,13 @@ const PROJECTS = {
       es: "Referencia interactiva con 42 métricas de IA en 11 capas del ciclo de vida: qué medir, cómo y cuándo.",
       tags: ["Reference", "Metrics"], status: "live",
       href: "https://luispsalas.github.io/ai-governance-scorecard/"
+    },
+    {
+      title: "Autonomous AI Casebook", kind: "timeline",
+      en: "Reconstructions of incidents where an AI system's autonomy was central to real harm, built from primary sources.",
+      es: "Reconstrucciones de incidentes donde la autonomía de un sistema de IA fue central al daño, basadas en fuentes primarias.",
+      tags: ["Casebook", "Primary sources"], status: "live",
+      href: "https://github.com/luispsalas/autonomous-ai-casebook"
     },
     {
       title: "Authorship Meter", kind: "meter",
