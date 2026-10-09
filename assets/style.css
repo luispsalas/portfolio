@@ -414,3 +414,19 @@ button.btn { font: inherit; font-size: var(--t-base); font-weight: 600; cursor: 
 .doc .deliverables h3 { margin: 0 0 var(--s2); font-size: var(--t-md); font-weight: 700; }
 .doc .deliverables ul { margin: 0; }
 .doc .deliverables li:last-child { margin-bottom: 0; padding-top: var(--s2); border-top: 1px solid var(--border-muted); }
+
+/* "At a glance": the four-row summary under the lede on every write-up page.
+   Goal, What was done, Governance, Measurement, one sentence each. */
+.doc .glance { margin: 0 0 var(--s5); }
+.doc .glance h2 { margin-top: var(--s6); }
+.doc .glance dl { margin: 0; }
+.doc .glance dl > div {
+  display: grid; grid-template-columns: 9.5rem 1fr; gap: var(--s3);
+  padding: var(--s3) 0; border-bottom: 1px solid var(--border-muted);
+}
+.doc .glance dt {
+  font-family: var(--mono); font-size: var(--t-xs); text-transform: uppercase;
+  letter-spacing: .06em; color: var(--fg-muted); padding-top: .2em;
+}
+.doc .glance dd { margin: 0; color: var(--fg); text-wrap: pretty; }
+@media (max-width: 560px) { .doc .glance dl > div { grid-template-columns: 1fr; gap: var(--s1); } }

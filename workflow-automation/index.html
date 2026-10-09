@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%230969da'/></svg>">
 <link rel="preload" href="../assets/fonts/IBMPlexSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/style.css?v=4">
+<link rel="stylesheet" href="../assets/style.css?v=5">
 </head>
 <body>
 
@@ -50,6 +50,24 @@
     <li class="tag" data-en="Privacy gate" data-es="Filtro de privacidad">Privacy gate</li>
     <li class="tag" data-en="Oct 2026" data-es="oct 2026">Oct 2026</li>
   </ul>
+
+  <section class="glance" aria-labelledby="glance-title">
+    <h2 id="glance-title" data-en="At a glance" data-es="En resumen">At a glance</h2>
+    <dl>
+      <div><dt data-en="Goal" data-es="Objetivo">Goal</dt>
+        <dd data-en="Let finance, HR and operations teams sort free-text requests with AI in about a second, without sending personal data to a third party."
+            data-es="Que los equipos de finanzas, recursos humanos y operaciones clasifiquen con IA solicitudes en texto libre en cerca de un segundo, sin enviar datos personales a un tercero.">Let finance, HR and operations teams sort free-text requests with AI in about a second, without sending personal data to a third party.</dd></div>
+      <div><dt data-en="What was done" data-es="Qué se hizo">What was done</dt>
+        <dd data-en="An n8n workflow on synthetic data: a rule-based privacy gate before the model, AI classification, and a fixed approval rule at $5,000."
+            data-es="Un flujo de n8n con datos sintéticos: un filtro de privacidad basado en reglas antes del modelo, clasificación con IA y una regla fija de aprobación desde $5,000.">An n8n workflow on synthetic data: a rule-based privacy gate before the model, AI classification, and a fixed approval rule at $5,000.</dd></div>
+      <div><dt data-en="Governance" data-es="Gobernanza">Governance</dt>
+        <dd data-en="Personal data is removed before text reaches the AI; a suspected name sends the request to a person; the AI never sees the amount."
+            data-es="Los datos personales se eliminan antes de que el texto llegue a la IA; un posible nombre envía la solicitud a una persona; la IA nunca ve el monto.">Personal data is removed before text reaches the AI; a suspected name sends the request to a person; the AI never sees the amount.</dd></div>
+      <div><dt data-en="Measurement" data-es="Medición">Measurement</dt>
+        <dd data-en="Every path logs a status and a reason. With the gate on, 0 of 6 requests with planted personal data reached the AI."
+            data-es="Cada ruta registra un estado y un motivo. Con el filtro activo, 0 de 6 solicitudes con datos personales sembrados llegaron a la IA.">Every path logs a status and a reason. With the gate on, 0 of 6 requests with planted personal data reached the AI.</dd></div>
+    </dl>
+  </section>
 
   <h2 data-en="Why it matters" data-es="Por qué importa">Why it matters</h2>
   <p data-en="Finance, HR and operations teams handle requests that arrive as free text: vendor purchases, reimbursements, access requests. Someone reads each one, sorts it, checks it against a spending rule, chases an approval and logs it. AI can do the reading and sorting in about a second. But putting a hosted AI model into that process creates risks the old process didn't have:"

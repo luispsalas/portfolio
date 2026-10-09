@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%230969da'/></svg>">
 <link rel="preload" href="../assets/fonts/IBMPlexSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/style.css?v=3">
+<link rel="stylesheet" href="../assets/style.css?v=5">
 </head>
 <body>
 
@@ -50,6 +50,24 @@
     <li class="tag" data-en="Detection design" data-es="Diseño de detecciones">Detection design</li>
     <li class="tag" data-en="Oct 2026" data-es="oct 2026">Oct 2026</li>
   </ul>
+
+  <section class="glance" aria-labelledby="glance-title">
+    <h2 id="glance-title" data-en="At a glance" data-es="En resumen">At a glance</h2>
+    <dl>
+      <div><dt data-en="Goal" data-es="Objetivo">Goal</dt>
+        <dd data-en="Decide what a runtime security tool should alert on, trace each alert back to a business reason, and prove that it works."
+            data-es="Decidir sobre qué debe alertar una herramienta de seguridad en tiempo de ejecución, vincular cada alerta a una razón de negocio y demostrar que funciona.">Decide what a runtime security tool should alert on, trace each alert back to a business reason, and prove that it works.</dd></div>
+      <div><dt data-en="What was done" data-es="Qué se hizo">What was done</dt>
+        <dd data-en="A Falco lab on Kubernetes that follows one example, a website defacement, from a business sentence to a tested, production-ready rule."
+            data-es="Un laboratorio de Falco en Kubernetes que sigue un ejemplo, la alteración de un sitio web, desde una frase de negocio hasta una regla probada y lista para producción.">A Falco lab on Kubernetes that follows one example, a website defacement, from a business sentence to a tested, production-ready rule.</dd></div>
+      <div><dt data-en="Governance" data-es="Gobernanza">Governance</dt>
+        <dd data-en="Each rule has an owner and each exception an expiry date; who may change or switch off a rule is itself a control."
+            data-es="Cada regla tiene un responsable y cada excepción una fecha de vencimiento; quién puede cambiar o desactivar una regla es en sí mismo un control.">Each rule has an owner and each exception an expiry date; who may change or switch off a rule is itself a control.</dd></div>
+      <div><dt data-en="Measurement" data-es="Medición">Measurement</dt>
+        <dd data-en="Rules are tested on and off beside a rule that must always fire, so silence proves the rule works, not that the tool stopped watching."
+            data-es="Las reglas se prueban activas e inactivas junto a una regla que siempre debe dispararse: el silencio demuestra que la regla funciona, no que la herramienta dejó de observar.">Rules are tested on and off beside a rule that must always fire, so silence proves the rule works, not that the tool stopped watching.</dd></div>
+    </dl>
+  </section>
 
   <h2 data-en="Why it matters" data-es="Por qué importa">Why it matters</h2>
   <p data-en="Prevention eventually fails: a credential leaks, a dependency is compromised, someone opens a shell where they shouldn't. <strong>Runtime detection</strong> watches what running workloads actually do and raises an alert when behavior crosses a line. Falco, an open-source CNCF project, does this by reading system calls straight from the Linux kernel, so the workloads it watches need no agent inside them."
