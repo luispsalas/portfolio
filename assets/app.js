@@ -50,6 +50,13 @@ const PROJECTS = {
       href: "workflow-automation/"
     },
     {
+      title: "Prompt Portfolio", kind: "matrix",
+      en: "Prompts treated as engineering: each one versioned, tested on a fixed set and reported with its failures. A growing collection, updated as new entries are tested.",
+      es: "Prompts tratados como ingeniería: cada uno versionado, probado con un conjunto fijo y reportado con sus fallas. Una colección en crecimiento, actualizada a medida que se prueban nuevas entradas.",
+      tags: ["Prompt engineering", "Evaluation", "Python"], status: "live",
+      href: "https://github.com/luispsalas/prompt-portfolio"
+    },
+    {
       title: "AI Governance Scorecard", kind: "bars",
       en: "An interactive reference covering 42 AI metrics across 11 lifecycle layers: what to measure, how, and when.",
       es: "Referencia interactiva con 42 métricas de IA en 11 capas del ciclo de vida: qué medir, cómo y cuándo.",
@@ -209,6 +216,26 @@ const MOTIF = {
         anim("opacity", "1;0;0;1;1;1;1", 5.4, kt) + `</circle>` +
       `<rect x="184" y="118" width="96" height="7" rx="3.5" fill="${LINE}"/>` +
       `<rect x="184" y="132" width="60" height="7" rx="3.5" fill="${LINE}"/>`;
+  },
+
+  /* the prompt portfolio's test matrix (same as its banner): three versions of a
+     prompt (rows) on the same six test cases; outlined cells are failures, and they
+     shrink from one version to the next. At rest the matrix is complete; while
+     playing, the cells clear and the tests run again row by row. */
+  matrix: () => {
+    const fails = [[1,3,4],[3],[]], dur = 5.4;
+    return [0,1,2].map(r => {
+      const y = 46 + r*34;
+      return `<rect x="34" y="${y+9}" width="16" height="8" rx="4" fill="${LINE}"/>` +
+        [0,1,2,3,4,5].map(k => {
+          const x = 66 + k*36, t = (.08 + (r*6 + k)*.045).toFixed(3);
+          const cell = fails[r].includes(k)
+            ? `fill="none" stroke="${LINE}" stroke-width="2.5"`
+            : `fill="currentColor"`;
+          return `<rect x="${x}" y="${y}" width="28" height="26" rx="6" ${cell}>` +
+            anim("opacity", "1;0;0;1;1", dur, `keyTimes="0;.04;${t};${(+t + .03).toFixed(3)};1"`) + `</rect>`;
+        }).join("");
+    }).join("");
   },
 
   /* metrics rising and falling */
