@@ -50,6 +50,13 @@ const PROJECTS = {
       href: "workflow-automation/"
     },
     {
+      title: "AI Enablement Toolkit", kind: "loop",
+      en: "Why people stop using a new AI tool, and how to tell a broken tool from a confusing one: an interview guide, a diagnosis sheet, feedback pages and a usage tracker. Tried once so far (n = 1).",
+      es: "Por qué la gente deja de usar una nueva herramienta de IA, y cómo distinguir una herramienta rota de una confusa: guía de entrevista, hoja de diagnóstico, páginas de retroalimentación y registro de uso. Probado una vez hasta ahora (n = 1).",
+      tags: ["Adoption", "User research", "Enablement"], status: "live",
+      href: "https://github.com/luispsalas/ai-enablement-toolkit"
+    },
+    {
       title: "Prompt Portfolio", kind: "matrix",
       en: "Prompts treated as engineering: each one versioned, tested on a fixed set and reported with its failures. A growing collection, updated as new entries are tested.",
       es: "Prompts tratados como ingeniería: cada uno versionado, probado con un conjunto fijo y reportado con sus fallas. Una colección en crecimiento, actualizada a medida que se prueban nuevas entradas.",
@@ -216,6 +223,19 @@ const MOTIF = {
         anim("opacity", "1;0;0;1;1;1;1", 5.4, kt) + `</circle>` +
       `<rect x="184" y="118" width="96" height="7" rx="3.5" fill="${LINE}"/>` +
       `<rect x="184" y="132" width="60" height="7" rx="3.5" fill="${LINE}"/>`;
+  },
+
+  /* the adoption loop: interview, diagnosis, feedback page, tracker; then the
+     follow-up arc carries the check back to the start. Rests at the interview. */
+  loop: () => {
+    /* keyPoints are the stations' share of the route length (463): 70, 140, 210 */
+    const xs = [60, 130, 200, 270], route = "M60,80 L270,80 C270,146 60,146 60,80";
+    return `<line x1="60" y1="80" x2="270" y2="80" stroke="${LINE}" stroke-width="3"/>` +
+      `<path d="M270,80 C270,146 60,146 60,80" fill="none" stroke="${LINE}" stroke-width="2.5" stroke-dasharray="5 5"/>` +
+      xs.map(x => `<circle cx="${x}" cy="80" r="11" fill="var(--bg-subtle)" stroke="${LINE}" stroke-width="2.5"/>`).join("") +
+      `<circle r="7" fill="currentColor"><animateMotion path="${route}" dur="5.6s" repeatCount="indefinite"
+         keyPoints="0;.151;.151;.303;.303;.454;.454;1" keyTimes="0;.12;.2;.32;.4;.52;.6;1" calcMode="linear"/></circle>` +
+      [0,1].map(i => `<rect x="60" y="${36+i*14}" width="${120-i*44}" height="7" rx="3.5" fill="${LINE}"/>`).join("");
   },
 
   /* the prompt portfolio's test matrix (same as its banner): three versions of a
