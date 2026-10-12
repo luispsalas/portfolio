@@ -51,9 +51,9 @@ const PROJECTS = {
     },
     {
       title: "AI Enablement Toolkit", kind: "loop",
-      en: "Why people stop using a new AI tool, and how to tell a broken tool from a confusing one: an interview guide, a diagnosis sheet, feedback pages and a usage tracker. Tried once so far (n = 1).",
-      es: "Por qué la gente deja de usar una nueva herramienta de IA, y cómo distinguir una herramienta rota de una confusa: guía de entrevista, hoja de diagnóstico, páginas de retroalimentación y registro de uso. Probado una vez hasta ahora (n = 1).",
-      tags: ["Adoption", "User research", "Enablement"], status: "live",
+      en: "Reusable material for bringing AI tools into a team: finding out why people stop using them, building the literacy to use them well, and reporting what changed. A growing collection, updated as new pieces are finished.",
+      es: "Material reutilizable para incorporar herramientas de IA en un equipo: entender por qué la gente deja de usarlas, desarrollar la alfabetización para usarlas bien y reportar qué cambió. Una colección en crecimiento, actualizada a medida que se terminan nuevas piezas.",
+      tags: ["Adoption", "AI literacy", "Enablement"], status: "live",
       href: "https://github.com/luispsalas/ai-enablement-toolkit"
     },
     {
