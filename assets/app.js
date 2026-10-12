@@ -64,11 +64,11 @@ const PROJECTS = {
       href: "https://github.com/luispsalas/prompt-portfolio"
     },
     {
-      title: "AI Governance Scorecard", kind: "bars",
-      en: "An interactive reference covering 42 AI metrics across 11 lifecycle layers: what to measure, how, and when.",
-      es: "Referencia interactiva con 42 métricas de IA en 11 capas del ciclo de vida: qué medir, cómo y cuándo.",
-      tags: ["Reference", "Metrics"], status: "live",
-      href: "https://luispsalas.github.io/ai-governance-scorecard/"
+      title: "AI Observability Toolkit", kind: "bars",
+      en: "Metrics and observability for AI systems, worked through real use cases: what to watch, how to read it, and how to improve results that have no exact grade. Starts with a NIST AI RMF crosswalk of 42 metrics. A growing collection, updated as new pieces are finished.",
+      es: "Métricas y observabilidad para sistemas de IA, trabajadas con casos de uso reales: qué observar, cómo leerlo y cómo mejorar resultados que no tienen una nota exacta. Empieza con un cruce de 42 métricas con el NIST AI RMF. Una colección en crecimiento, actualizada a medida que se terminan nuevas piezas.",
+      tags: ["Observability", "Metrics", "NIST AI RMF"], status: "live",
+      href: "https://github.com/luispsalas/ai-observability-toolkit"
     },
     {
       title: "Autonomous AI Casebook", kind: "timeline",
