@@ -84,6 +84,78 @@
   <p data-en="So it was rebuilt as plain code, with the model called at only the two points that genuinely need judgment: deciding whether a source is worth keeping, and writing the summary. LLM calls per run went from <strong>6 to 2</strong>, and the new pipeline passed its first contract test <strong>10/10</strong>."
      data-es="Así que se reconstruyó como código convencional, llamando al modelo solo en los dos puntos que realmente requieren criterio: decidir si una fuente vale la pena y redactar el resumen. Las llamadas al modelo por ejecución pasaron de <strong>6 a 2</strong>, y el nuevo pipeline superó su primera prueba de contrato con <strong>10/10</strong>.">
     So it was rebuilt as plain code, with the model called at only the two points that genuinely need judgment: deciding whether a source is worth keeping, and writing the summary. LLM calls per run went from <strong>6 to 2</strong>, and the new pipeline passed its first contract test <strong>10/10</strong>.</p>
+  <figure>
+    <div class="fig-scroll">
+    <svg viewBox="0 0 740 318" role="img" aria-labelledby="kb-t kb-d">
+      <title id="kb-t">Original design versus current design</title>
+      <desc id="kb-d">Before: six steps in a row, search, download, assess, validate, register and digest, each run by an AI agent, so the model is called six times per run. After: the same work in six steps run by plain code, fetch from arXiv, deduplicate, assess, store, queue for review and digest, with the model called only at two of them, assessing whether to keep a source and writing the digest.</desc>
+      <defs>
+        <marker id="kbah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dg-head" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <text class="dg-k" x="16" y="30" text-anchor="start" data-en="Before · runs 1 to 18 · six AI agents, 6 model calls" data-es="Antes · ejecuciones 1 a 18 · seis agentes de IA, 6 llamadas al modelo">Before · runs 1 to 18 · six AI agents, 6 model calls</text>
+      <rect class="dg-acc" x="16" y="46" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="70.0" y="74" text-anchor="middle" data-en="Search" data-es="Buscar">Search</text>
+      <text class="dg-m" x="70.0" y="94" text-anchor="middle" data-en="AI agent" data-es="agente de IA">AI agent</text>
+      <text class="dg-m" x="70.0" y="110" text-anchor="middle" data-en="open web" data-es="web abierta">open web</text>
+      <path class="dg-line" d="M125,83 L135,83" marker-end="url(#kbah)"/>
+      <rect class="dg-acc" x="136" y="46" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="190.0" y="74" text-anchor="middle" data-en="Download" data-es="Descargar">Download</text>
+      <text class="dg-m" x="190.0" y="94" text-anchor="middle" data-en="AI agent" data-es="agente de IA">AI agent</text>
+      <path class="dg-line" d="M245,83 L255,83" marker-end="url(#kbah)"/>
+      <rect class="dg-acc" x="256" y="46" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="310.0" y="74" text-anchor="middle" data-en="Assess" data-es="Evaluar">Assess</text>
+      <text class="dg-m" x="310.0" y="94" text-anchor="middle" data-en="AI agent" data-es="agente de IA">AI agent</text>
+      <path class="dg-line" d="M365,83 L375,83" marker-end="url(#kbah)"/>
+      <rect class="dg-acc" x="376" y="46" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="430.0" y="74" text-anchor="middle" data-en="Validate" data-es="Validar">Validate</text>
+      <text class="dg-m" x="430.0" y="94" text-anchor="middle" data-en="AI agent" data-es="agente de IA">AI agent</text>
+      <path class="dg-line" d="M485,83 L495,83" marker-end="url(#kbah)"/>
+      <rect class="dg-acc" x="496" y="46" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="550.0" y="74" text-anchor="middle" data-en="Register" data-es="Registrar">Register</text>
+      <text class="dg-m" x="550.0" y="94" text-anchor="middle" data-en="AI agent" data-es="agente de IA">AI agent</text>
+      <path class="dg-line" d="M605,83 L615,83" marker-end="url(#kbah)"/>
+      <rect class="dg-acc" x="616" y="46" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="670.0" y="74" text-anchor="middle" data-en="Digest" data-es="Resumen">Digest</text>
+      <text class="dg-m" x="670.0" y="94" text-anchor="middle" data-en="AI agent" data-es="agente de IA">AI agent</text>
+      <text class="dg-k" x="16" y="170" text-anchor="start" data-en="After · plain code, the model at two points, 2 calls" data-es="Después · código convencional, el modelo en dos puntos, 2 llamadas">After · plain code, the model at two points, 2 calls</text>
+      <rect class="dg-box" x="16" y="186" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="70.0" y="214" text-anchor="middle" data-en="Fetch" data-es="Obtener">Fetch</text>
+      <text class="dg-m" x="70.0" y="234" text-anchor="middle" data-en="plain code" data-es="código">plain code</text>
+      <text class="dg-m" x="70.0" y="250" text-anchor="middle" data-en="from arXiv" data-es="desde arXiv">from arXiv</text>
+      <path class="dg-line" d="M125,223 L135,223" marker-end="url(#kbah)"/>
+      <rect class="dg-box" x="136" y="186" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="190.0" y="214" text-anchor="middle" data-en="Deduplicate" data-es="Deduplicar">Deduplicate</text>
+      <text class="dg-m" x="190.0" y="234" text-anchor="middle" data-en="plain code" data-es="código">plain code</text>
+      <path class="dg-line" d="M245,223 L255,223" marker-end="url(#kbah)"/>
+      <rect class="dg-acc" x="256" y="186" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="310.0" y="214" text-anchor="middle" data-en="Assess" data-es="Evaluar">Assess</text>
+      <text class="dg-m" x="310.0" y="234" text-anchor="middle" data-en="model" data-es="modelo">model</text>
+      <text class="dg-m" x="310.0" y="250" text-anchor="middle" data-en="keep or drop" data-es="conservar o no">keep or drop</text>
+      <path class="dg-line" d="M365,223 L375,223" marker-end="url(#kbah)"/>
+      <rect class="dg-box" x="376" y="186" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="430.0" y="214" text-anchor="middle" data-en="Store" data-es="Almacenar">Store</text>
+      <text class="dg-m" x="430.0" y="234" text-anchor="middle" data-en="plain code" data-es="código">plain code</text>
+      <path class="dg-line" d="M485,223 L495,223" marker-end="url(#kbah)"/>
+      <rect class="dg-box" x="496" y="186" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="550.0" y="214" text-anchor="middle" data-en="Queue" data-es="Cola">Queue</text>
+      <text class="dg-m" x="550.0" y="234" text-anchor="middle" data-en="plain code" data-es="código">plain code</text>
+      <text class="dg-m" x="550.0" y="250" text-anchor="middle" data-en="for review" data-es="para revisión">for review</text>
+      <path class="dg-line" d="M605,223 L615,223" marker-end="url(#kbah)"/>
+      <rect class="dg-acc" x="616" y="186" width="108" height="74" rx="6"/>
+      <text class="dg-t" x="670.0" y="214" text-anchor="middle" data-en="Digest" data-es="Resumen">Digest</text>
+      <text class="dg-m" x="670.0" y="234" text-anchor="middle" data-en="model" data-es="modelo">model</text>
+      <text class="dg-m" x="670.0" y="250" text-anchor="middle" data-en="writes it" data-es="lo redacta">writes it</text>
+      <rect class="dg-acc" x="16" y="289" width="14" height="14" rx="3"/>
+      <text class="dg-m" x="38" y="300" text-anchor="start" data-en="The model decides" data-es="Decide el modelo">The model decides</text>
+      <rect class="dg-box" x="186" y="289" width="14" height="14" rx="3"/>
+      <text class="dg-m" x="208" y="300" text-anchor="start" data-en="Plain code, the same every run" data-es="Código convencional, igual en cada ejecución">Plain code, the same every run</text>
+    </svg>
+    </div>
+    <figcaption data-en="Before, an AI agent ran every step and decided for itself how to do it. Now plain code runs every step, and the model is called only where judgment is needed: keeping or dropping a source, and writing the summary."
+                data-es="Antes, un agente de IA ejecutaba cada paso y decidía por su cuenta cómo hacerlo. Ahora el código convencional ejecuta cada paso, y el modelo se llama solo donde hace falta criterio: conservar o descartar una fuente, y redactar el resumen.">
+      Before, an AI agent ran every step and decided for itself how to do it. Now plain code runs every step, and the model is called only where judgment is needed: keeping or dropping a source, and writing the summary.</figcaption>
+  </figure>
+
 
   <h2 data-en="What it taught" data-es="Lo que enseñó">What it taught</h2>
   <ul>
