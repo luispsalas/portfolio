@@ -139,6 +139,10 @@ const ease = n =>
 const wavePoints = phase => Array.from({length: 30}, (_, i) =>
   `${30+i*9},${(100 - Math.sin(i*0.52 + phase)*(13+i)).toFixed(phase === 0 ? 0 : 1)}`).join(" ");
 
+/* Colour: grey (LINE) plus the section accent (currentColor). A motif may add ONE
+   status colour, only on the element that is an outcome with the same meaning as the
+   status badges: green (--success) for passed or took hold, amber (--attention) for
+   needs a person. Creative motifs stay accent-only. */
 const MOTIF = {
   /* lines of text, rewritten */
   doc: () =>
@@ -156,10 +160,10 @@ const MOTIF = {
     const kt = `keyTimes="0;.08;.16;.24;.32;.45;.5;.6;.8;1"`;
     return `<line x1="34" y1="112" x2="286" y2="112" stroke="${LINE}" stroke-width="3"/>` +
       [0,1,2,3,4].map(i => `<circle cx="${44+i*52}" cy="112" r="5" fill="${LINE}"/>`).join("") +
-      `<path d="M148,112 C175,114 196,132 214,160" fill="none" stroke="currentColor" stroke-width="2.5"
+      `<path d="M148,112 C175,114 196,132 214,160" fill="none" stroke="var(--attention)" stroke-width="2.5"
          stroke-dasharray="5 5" stroke-linecap="round" opacity="0">` +
         anim("opacity", "0;1;1;0;0", 7, `keyTimes="0;.1;.4;.55;1"`) + `</path>` +
-      `<circle cx="148" cy="112" r="10" fill="currentColor">` +
+      `<circle cx="148" cy="112" r="10" fill="var(--attention)">` +
         anim("cx", "148;170;190;206;214;214;44;44;96;148", 7, kt) +
         anim("cy", "112;118;130;146;160;160;112;112;112;112", 7, kt) +
         anim("opacity", "1;1;0;0;1;1", 7, `keyTimes="0;.32;.45;.52;.6;1"`) + `</circle>` +
@@ -195,8 +199,8 @@ const MOTIF = {
     return `<line x1="30" y1="104" x2="290" y2="104" stroke="${LINE}" stroke-width="3"/>` + dots +
       `<rect x="150" y="70" width="20" height="68" rx="5" fill="none" stroke="currentColor" stroke-width="2.5"/>
        <line x1="160" y1="70" x2="160" y2="52" stroke="currentColor" stroke-width="2.5"/>
-       <circle cx="160" cy="44" r="7" fill="currentColor"/>
-       <circle cx="160" cy="44" r="7" fill="none" stroke="currentColor" stroke-width="2" opacity=".7">` +
+       <circle cx="160" cy="44" r="7" fill="var(--attention)"/>
+       <circle cx="160" cy="44" r="7" fill="none" stroke="var(--attention)" stroke-width="2" opacity=".7">` +
         anim("r", "7;20", 2.4) + anim("opacity", ".7;0", 2.4) + `</circle>` +
       [0,1].map(i => `<rect x="${184}" y="${38+i*14}" width="${76-i*28}" height="7" rx="3.5" fill="${LINE}"/>`).join("");
   },
@@ -217,7 +221,7 @@ const MOTIF = {
       `<rect x="108" y="118" width="40" height="30" rx="7" fill="none" stroke="${LINE}" stroke-width="2.5"/>` +
       dots +
       `<rect x="154" y="46" width="12" height="60" rx="4" fill="currentColor"/>` +
-      `<circle cx="128" cy="133" r="6" fill="none" stroke="currentColor" stroke-width="2.5">` +
+      `<circle cx="128" cy="133" r="6" fill="none" stroke="var(--attention)" stroke-width="2.5">` +
         anim("cx", "128;128;16;16;118;128;128", 5.4, kt) +
         anim("cy", "133;133;76;76;76;96;133", 5.4, kt) +
         anim("opacity", "1;0;0;1;1;1;1", 5.4, kt) + `</circle>` +
@@ -255,7 +259,7 @@ const MOTIF = {
           const x = 66 + k*36, t = (.08 + (r*6 + k)*.045).toFixed(3);
           const cell = fails[r].includes(k)
             ? `fill="none" stroke="${LINE}" stroke-width="2.5"`
-            : `fill="currentColor"`;
+            : `fill="${r === 2 ? "var(--success)" : "currentColor"}"`;
           return `<rect x="${x}" y="${y}" width="28" height="26" rx="6" ${cell}>` +
             anim("opacity", "1;0;0;1;1", dur, `keyTimes="0;.04;${t};${(+t + .03).toFixed(3)};1"`) + `</rect>`;
         }).join("");
