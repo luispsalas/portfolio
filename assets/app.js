@@ -50,10 +50,10 @@ const PROJECTS = {
       href: "workflow-automation/"
     },
     {
-      title: "AI Enablement Toolkit", kind: "loop",
-      en: "Reusable material for bringing AI tools into a team: finding out why people stop using them, building the literacy to use them well, and reporting what changed. A growing collection, updated as new pieces are finished.",
-      es: "Material reutilizable para incorporar herramientas de IA en un equipo: entender por qué la gente deja de usarlas, desarrollar la alfabetización para usarlas bien y reportar qué cambió. Una colección en crecimiento, actualizada a medida que se terminan nuevas piezas.",
-      tags: ["Adoption", "AI literacy", "Enablement"], status: "live",
+      title: "AI Enablement Toolkit", kind: "converge",
+      en: "Practical tools for adopting AI, from first pilot to proven value: adoption reviews, AI literacy, governance templates and use-case assessment, each usable on its own. A growing collection, updated as new pieces are finished.",
+      es: "Herramientas prácticas para adoptar IA, del primer piloto al valor comprobado: revisiones de adopción, alfabetización en IA, plantillas de gobernanza y evaluación de casos de uso, cada una utilizable por sí sola. Una colección en crecimiento, actualizada a medida que se terminan nuevas piezas.",
+      tags: ["Adoption", "AI literacy", "Governance"], status: "live",
       href: "https://github.com/luispsalas/ai-enablement-toolkit"
     },
     {
@@ -225,17 +225,21 @@ const MOTIF = {
       `<rect x="184" y="132" width="60" height="7" rx="3.5" fill="${LINE}"/>`;
   },
 
-  /* the adoption loop: interview, diagnosis, feedback page, tracker; then the
-     follow-up arc carries the check back to the start. Rests at the interview. */
-  loop: () => {
-    /* keyPoints are the stations' share of the route length (463): 70, 140, 210 */
-    const xs = [60, 130, 200, 270], route = "M60,80 L270,80 C270,146 60,146 60,80";
-    return `<line x1="60" y1="80" x2="270" y2="80" stroke="${LINE}" stroke-width="3"/>` +
-      `<path d="M270,80 C270,146 60,146 60,80" fill="none" stroke="${LINE}" stroke-width="2.5" stroke-dasharray="5 5"/>` +
-      xs.map(x => `<circle cx="${x}" cy="80" r="11" fill="var(--bg-subtle)" stroke="${LINE}" stroke-width="2.5"/>`).join("") +
-      `<circle r="7" fill="currentColor"><animateMotion path="${route}" dur="5.6s" repeatCount="indefinite"
-         keyPoints="0;.151;.151;.303;.303;.454;.454;1" keyTimes="0;.12;.2;.32;.4;.52;.6;1" calcMode="linear"/></circle>` +
-      [0,1].map(i => `<rect x="60" y="${36+i*14}" width="${120-i*44}" height="7" rx="3.5" fill="${LINE}"/>`).join("");
+  /* the toolkit's Converge banner: an 8x4 grid of dots, grey and scattered on the
+     left, settling into rows and turning blue, then green, on the right. At rest it
+     is the banner's drawing; while playing, each column settles in turn into evenly
+     spaced rows and takes the next colour, then returns. Points: [x, y, r, tone, settled x, settled y]. */
+  converge: () => {
+    const P = [[51,34,4.8,0,54,50],[64,62,4.8,0,54,81],[60,106,4.8,0,54,112],[40,144,4.8,0,54,143],[75,47,5.1,0,86,50],[76,66,5.1,0,86,81],[87,124,5.1,0,86,112],[78,134,5.1,0,86,143],[125,62,5.5,0,119,50],[123,78,5.5,0,119,81],[133,100,5.5,0,119,112],[131,138,5.5,0,119,143],[147,42,5.8,1,151,50],[150,87,5.8,1,151,81],[148,114,5.8,1,151,112],[156,141,5.8,1,151,143],[186,44,6.2,1,183,50],[180,77,6.2,1,183,81],[187,111,6.2,1,183,112],[183,144,6.2,1,183,143],[216,48,6.5,1,215,50],[218,82,6.5,1,215,81],[215,113,6.5,1,215,112],[217,146,6.5,1,215,143],[249,49,6.9,2,248,50],[249,80,6.9,2,248,81],[248,113,6.9,2,248,112],[248,143,6.9,2,248,143],[280,50,7.2,2,280,50],[280,81,7.2,2,280,81],[280,112,7.2,2,280,112],[280,143,7.2,2,280,143]];
+    const fill = [LINE, "currentColor", "var(--success)"], dur = 4.8;
+    return P.map(([x, y, r, tone, sx, sy], i) => {
+      const begin = `begin="${(Math.floor(i / 4) * .16).toFixed(2)}s" calcMode="spline" keyTimes="0;.4;.7;1" keySplines=".45 0 .55 1;0 0 1 1;.45 0 .55 1"`;
+      const move = anim("cx", `${x};${sx};${sx};${x}`, dur, begin) + anim("cy", `${y};${sy};${sy};${y}`, dur, begin);
+      const dot = `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill[tone]}">${move}</circle>`;
+      if (tone === 2) return dot;
+      return dot + `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill[tone + 1]}" opacity="0">${move}` +
+        anim("opacity", "0;1;1;0", dur, begin) + `</circle>`;
+    }).join("");
   },
 
   /* the prompt portfolio's test matrix (same as its banner): three versions of a
