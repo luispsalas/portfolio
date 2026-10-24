@@ -29,6 +29,13 @@ const PROJECTS = {
       href: "https://github.com/luispsalas/governed-data-platform"
     },
     {
+      title: "AI Enablement Toolkit", kind: "converge",
+      en: "Practical tools for adopting AI, from first pilot to proven value: adoption reviews, AI literacy, governance templates and use-case assessment, each usable on its own. A growing collection, updated as new pieces are finished.",
+      es: "Herramientas prácticas para adoptar IA, del primer piloto al valor comprobado: revisiones de adopción, alfabetización en IA, plantillas de gobernanza y evaluación de casos de uso, cada una utilizable por sí sola. Una colección en crecimiento, actualizada a medida que se terminan nuevas piezas.",
+      tags: ["Adoption", "AI literacy", "Governance"], status: "live",
+      href: "https://github.com/luispsalas/ai-enablement-toolkit"
+    },
+    {
       title: "Local Governance Knowledge Base", kind: "code",
       en: "A local, deterministic pipeline that builds and maintains a governance knowledge base. Shared as a write-up.",
       es: "Pipeline local y determinista que construye y mantiene una base de conocimiento de gobernanza. Compartido como reseña.",
@@ -48,13 +55,6 @@ const PROJECTS = {
       es: "Agregar IA a un flujo de trabajo empresarial sin filtrar datos personales: un filtro de privacidad, aprobación basada en reglas y rutas de error probadas, construido en n8n.",
       tags: ["n8n", "Privacy", "Automation"], status: "private",
       href: "workflow-automation/"
-    },
-    {
-      title: "AI Enablement Toolkit", kind: "converge",
-      en: "Practical tools for adopting AI, from first pilot to proven value: adoption reviews, AI literacy, governance templates and use-case assessment, each usable on its own. A growing collection, updated as new pieces are finished.",
-      es: "Herramientas prácticas para adoptar IA, del primer piloto al valor comprobado: revisiones de adopción, alfabetización en IA, plantillas de gobernanza y evaluación de casos de uso, cada una utilizable por sí sola. Una colección en crecimiento, actualizada a medida que se terminan nuevas piezas.",
-      tags: ["Adoption", "AI literacy", "Governance"], status: "live",
-      href: "https://github.com/luispsalas/ai-enablement-toolkit"
     },
     {
       title: "Prompt Portfolio", kind: "matrix",
