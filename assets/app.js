@@ -65,8 +65,8 @@ const PROJECTS = {
     },
     {
       title: "AI Observability Toolkit", kind: "bars",
-      en: "Metrics and observability for AI systems, worked through real use cases: what to watch, how to read it, and how to improve results that have no exact grade. Starts with a NIST AI RMF crosswalk. A growing collection, updated as new pieces are finished.",
-      es: "Métricas y observabilidad para sistemas de IA, trabajadas con casos de uso reales: qué observar, cómo leerlo y cómo mejorar resultados que no tienen una nota exacta. Empieza con un cruce con el NIST AI RMF. Una colección en crecimiento, actualizada a medida que se terminan nuevas piezas.",
+      en: "Metrics and observability for AI systems, worked through real use cases: what to watch, how to read it, and what to do when no single score says whether the answer was right. Starts with a NIST AI RMF crosswalk. A growing collection, updated as new pieces are finished.",
+      es: "Métricas y observabilidad para sistemas de IA, trabajadas con casos de uso reales: qué observar, cómo leerlo y qué hacer cuando ninguna puntuación por sí sola indica si la respuesta fue correcta. Empieza con un cruce con el NIST AI RMF. Una colección en crecimiento, actualizada a medida que se terminan nuevas piezas.",
       tags: ["Observability", "Metrics", "NIST AI RMF"], status: "live",
       href: "https://github.com/luispsalas/ai-observability-toolkit"
     },
