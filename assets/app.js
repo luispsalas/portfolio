@@ -97,7 +97,7 @@ const PROJECTS = {
       title: "Idiorritmos", kind: "wave",
       en: "An idiorhythmic texturizer: everlasting layers of sound chopped by human rhythm. Max/MSP gen~ exported to AU/VST3.",
       es: "Un texturizador idiorrítmico: capas perpetuas de sonido cortadas por ritmo humano. Max/MSP gen~ exportado a AU/VST3.",
-      tags: ["Max/MSP", "RNBO", "Plugin"], status: "soon",
+      tags: ["Max/MSP", "RNBO", "Plugin"], status: "live",
       href: "https://github.com/luispsalas/Idiorritmos"
     },
     {
