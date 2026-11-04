@@ -75,6 +75,62 @@
      data-es="Un pipeline encuentra fuentes candidatas, decide cuáles conservar, las almacena para su recuperación (con embeddings de nomic-embed-text) y redacta un breve resumen legible de lo que se agregó. Sobre él funciona un chat, a cargo de Llama 3.2 3B, que responde preguntas a partir del material almacenado y cita de dónde sale cada respuesta.">
     A pipeline finds candidate sources, decides which to keep, stores them for retrieval (embedded with nomic-embed-text) and writes a short human-readable summary of what was added. On top of it sits a chat, run by Llama 3.2 3B, that answers questions from the stored material and cites where each answer came from.</p>
 
+  <figure>
+    <div class="fig-scroll">
+    <svg viewBox="0 0 740 428" role="img" aria-labelledby="st-t st-d">
+      <title id="st-t">How the parts fit together</title>
+      <desc id="st-d">Nested layers. The outer layer is the machine: a Ryzen 5 5625U with 16 GB of RAM and no GPU, so every model runs on the processor. Inside it, Ubuntu 24.04 runs a Telegram bot and the pipeline, written in Python, directly on the host. Inside Ubuntu, Docker Compose runs four containers: Open WebUI for chatting in the browser, FastAPI for retrieval and the citation check, Ollama serving the models, and Qdrant storing the vectors. The bot starts the pipeline. The pipeline calls Ollama to assess and summarize, and stores sources through FastAPI. A chat question goes from Open WebUI to FastAPI, which retrieves from Qdrant and asks Ollama for the answer. Ollama serves Qwen2.5 7B for assessing and summarizing, Llama 3.2 3B for chat, and nomic-embed-text for embeddings.</desc>
+      <defs>
+        <marker id="stah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dg-head" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <rect class="dg-host" x="6" y="8" width="728" height="412" rx="10"/>
+      <text class="dg-k" x="22" y="30" text-anchor="start" data-en="Ryzen 5 5625U · 16 GB RAM · no GPU, models run on the CPU" data-es="Ryzen 5 5625U · 16 GB RAM · sin GPU, los modelos usan la CPU">Ryzen 5 5625U · 16 GB RAM · no GPU, models run on the CPU</text>
+      <rect class="dg-host" x="20" y="44" width="700" height="362" rx="8"/>
+      <text class="dg-k" x="36" y="66" text-anchor="start" data-en="Ubuntu 24.04 · on the host" data-es="Ubuntu 24.04 · en el host">Ubuntu 24.04 · on the host</text>
+
+      <rect class="dg-box" x="50" y="84" width="170" height="64" rx="6"/>
+      <text class="dg-t" x="135" y="110" text-anchor="middle" data-en="Telegram bot" data-es="Bot de Telegram">Telegram bot</text>
+      <text class="dg-m" x="135" y="130" text-anchor="middle" data-en="starts runs, alerts" data-es="lanza ejecuciones, alertas">starts runs, alerts</text>
+      <path class="dg-line" d="M221,116 L261,116" marker-end="url(#stah)"/>
+      <rect class="dg-box" x="262" y="84" width="170" height="64" rx="6"/>
+      <text class="dg-t" x="347" y="110" text-anchor="middle">Pipeline</text>
+      <text class="dg-m" x="347" y="130" text-anchor="middle" data-en="Python on the host" data-es="Python en el host">Python on the host</text>
+      <path class="dg-line" d="M433,116 L587,116 L587,211" marker-end="url(#stah)"/>
+      <text class="dg-m" x="510" y="108" text-anchor="middle" data-en="assess, summarize" data-es="evaluar, resumir">assess, summarize</text>
+      <path class="dg-line" d="M347,149 L347,211" marker-end="url(#stah)"/>
+      <text class="dg-m" x="355" y="166" text-anchor="start" data-en="store" data-es="almacenar">store</text>
+
+      <rect class="dg-host" x="34" y="176" width="672" height="216" rx="8"/>
+      <text class="dg-k" x="50" y="198" text-anchor="start">Docker Compose</text>
+
+      <rect class="dg-box" x="50" y="212" width="170" height="74" rx="6"/>
+      <text class="dg-t" x="135" y="240" text-anchor="middle">Open WebUI</text>
+      <text class="dg-m" x="135" y="260" text-anchor="middle" data-en="chat in the browser" data-es="chat en el navegador">chat in the browser</text>
+      <path class="dg-line" d="M221,249 L261,249" marker-end="url(#stah)"/>
+
+      <rect class="dg-box" x="262" y="212" width="170" height="74" rx="6"/>
+      <text class="dg-t" x="347" y="238" text-anchor="middle">FastAPI</text>
+      <text class="dg-m" x="347" y="258" text-anchor="middle" data-en="retrieval and" data-es="recuperación y">retrieval and</text>
+      <text class="dg-m" x="347" y="274" text-anchor="middle" data-en="citation check" data-es="control de citas">citation check</text>
+      <path class="dg-line" d="M433,249 L481,249" marker-end="url(#stah)"/>
+      <path class="dg-line" d="M347,287 L347,311" marker-end="url(#stah)"/>
+
+      <rect class="dg-box" x="262" y="312" width="170" height="64" rx="6"/>
+      <text class="dg-t" x="347" y="338" text-anchor="middle">Qdrant</text>
+      <text class="dg-m" x="347" y="358" text-anchor="middle" data-en="vectors: papers, wiki" data-es="vectores: artículos, wiki">vectors: papers, wiki</text>
+
+      <rect class="dg-acc" x="482" y="212" width="210" height="120" rx="6"/>
+      <text class="dg-t" x="587" y="238" text-anchor="middle">Ollama</text>
+      <text class="dg-m" x="587" y="262" text-anchor="middle" data-en="Qwen2.5 7B · assess, summarize" data-es="Qwen2.5 7B · evaluar, resumir">Qwen2.5 7B · assess, summarize</text>
+      <text class="dg-m" x="587" y="284" text-anchor="middle">Llama 3.2 3B · chat</text>
+      <text class="dg-m" x="587" y="306" text-anchor="middle">nomic-embed-text · embeddings</text>
+    </svg>
+    </div>
+    <figcaption data-en="Everything runs on one small machine. The pipeline and the Telegram bot run directly on Ubuntu, and the chat, the API, the models and the vector store run as Docker Compose containers. Ollama keeps two language models loaded, the larger for the slower batch work and the smaller for chat. The chat is reached from a phone or laptop over a private network (Tailscale)."
+      data-es="Todo funciona en una sola máquina pequeña. El pipeline y el bot de Telegram corren directamente en Ubuntu, y el chat, la API, los modelos y el almacén de vectores corren como contenedores de Docker Compose. Ollama mantiene dos modelos de lenguaje cargados, el más grande para el trabajo por lotes, más lento, y el más pequeño para el chat. Al chat se accede desde un teléfono o una laptop por una red privada (Tailscale).">
+      Everything runs on one small machine. The pipeline and the Telegram bot run directly on Ubuntu, and the chat, the API, the models and the vector store run as Docker Compose containers. Ollama keeps two language models loaded, the larger for the slower batch work and the smaller for chat. The chat is reached from a phone or laptop over a private network (Tailscale).</figcaption>
+  </figure>
+
   <h2 data-en="The decision that mattered" data-es="La decisión que importó">The decision that mattered</h2>
   <p data-en="It began as a crew of six AI agents (CrewAI) running on Qwen2.5 7B and Mistral 7B, each deciding for itself how to search, ingest, summarize and register sources. It took <strong>18 runs</strong> to reach one clean end-to-end pass, and even that needed manual correction."
      data-es="Empezó como un equipo de seis agentes de IA (CrewAI) que funcionaba con Qwen2.5 7B y Mistral 7B, cada uno decidiendo por su cuenta cómo buscar, ingerir, resumir y registrar fuentes. Hicieron falta <strong>18 ejecuciones</strong> para lograr una pasada completa sin errores, y aun esa requirió corrección manual.">
